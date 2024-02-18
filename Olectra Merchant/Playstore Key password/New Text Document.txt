@@ -1,0 +1,8 @@
+Password: Creative2k22Software
+O.N: Creative Software
+keyAlish: CreativeSoftware
+Organization :Private
+City: Dhaka
+
+Zippy Delivery// keytool -genkey -v -keystore C:\Users\Admin\upload-keystore-zippy_delivery.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias CreativeSoftware
+Package Name : 

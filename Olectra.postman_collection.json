@@ -1,0 +1,587 @@
+{
+	"info": {
+		"_postman_id": "44a19212-7f92-41ba-87d8-4ec7a5fbcefd",
+		"name": "Olectra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12886818"
+	},
+	"item": [
+		{
+			"name": "CoverageArealist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://system.olectraexpress.com/api/distList",
+					"protocol": "http",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"distList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "olectra_login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjExMDQ5ZDBlOTdkNzhmMTYwOWUyODRlNDhmZjMxNTNmMzI3MzNmZmFlNmIwOGI5YzVhZjk5NDdkNGJmYjhhMjI2YjczNDQwMDc3MmY1ZGEyIn0.eyJhdWQiOiIyNCIsImp0aSI6IjExMDQ5ZDBlOTdkNzhmMTYwOWUyODRlNDhmZjMxNTNmMzI3MzNmZmFlNmIwOGI5YzVhZjk5NDdkNGJmYjhhMjI2YjczNDQwMDc3MmY1ZGEyIiwiaWF0IjoxNzA1MjAzNDg4LCJuYmYiOjE3MDUyMDM0ODgsImV4cCI6MTczNjgyNTg4OCwic3ViIjoiNzcxIiwic2NvcGVzIjpbXX0.nwNhtLbHpw1WfbVk9Eg6u6MOCyz_d1G_78nR15zIQuMqMAFMb6YnmB2ERuse72rqbr7ynFfhzT-Kn24UzNCEiHHtTffIeAPsb30RyjA7a97mCV4B1zb0CX3XR4R4aJlmg6MGtZilrGpadPnMXa_RmbWUpndKIpP3VpRQPL55fSH_I6fJyCGKX_NxA6mSD6UyqC_eShoSVibmqnPHG-7urZoRkDYbk-IwC3vnQY1i8v0xzdycUjL3XyAR191ljPqdVuKHvd-aTHr45eJUqWrFy466idPSqXZXEetKAXQlUGaJHZ7pas_FZvVa6tH7NLx-sVSEGf2ljUasy6jCq_VqXT2_Thg_tUHqLA7xb7tkqB_JNWPNLPhPmNjQCKQHsNERHXqJBTBnt92W15ssm3rIp9z4SPGoKq5UdgHEYHA9dfCr867YTUknIFQLb1XFvU0aLuB7enRgYMbjGTciXtujkqXSJfthnRqWb1yx5oQtYDX8Pb3QXm9vtjv8LZ1OPGPBJrHPtinZFoxVI3qT_thsp99sStqVdeScaBdM04nNTMkRgou9zSyGJv0ZFojsMhFyNSGiu9Vax3BHiYA_uwqzu0MwUxooY2q4n1hV2X95EmgszeZFWJE6PcbWRjZHxTRAwYsdjv7J4CdhKmfcTaQijlJA9qthjkZ9M-XH19qSiPo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "rupa@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://system.olectraexpress.com/api/login",
+					"protocol": "http",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order_tracking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQzZDVjMzdiZDI4NDYyYjg2ZmI4NDI3YjU3YjFlNGE0ZTZlYmEyYWU1ZTYxNGY2YWRiNzE5MmQwZDk5ZGYxYzY1NGZiN2I3MjMzMWJhMmZmIn0.eyJhdWQiOiIyMiIsImp0aSI6IjQzZDVjMzdiZDI4NDYyYjg2ZmI4NDI3YjU3YjFlNGE0ZTZlYmEyYWU1ZTYxNGY2YWRiNzE5MmQwZDk5ZGYxYzY1NGZiN2I3MjMzMWJhMmZmIiwiaWF0IjoxNzA0NTMwMzkyLCJuYmYiOjE3MDQ1MzAzOTIsImV4cCI6MTczNjE1Mjc5Miwic3ViIjoiNzcwIiwic2NvcGVzIjpbXX0.VWhoPg-cb-Y1NKbb4EWcEOnnEUhwUuF2BbeqW5S3Zx-RAAQUuD7zyPARWrohQeF5m-TbuD6WSF3yMadJqxzYSXbP5kq6cQ_Oa7pskuSexHeHC4D3sX7pn77MdYaxNE9G9cmf2NXDUaMio0xM7hOquOW7H3Pj7xSpKUOer_K_BM5a0841hbHJo8d-J6kpADEduTCO0Am0UEtJ6W0hBRp5cprZT_X12N8pkGVvyxXMLme6K0q06IJ29oI5HH6ZMN4m3xWr2jPJNq2hX6awIaIu5OEt179dT964lLp_soj47SagUMMDETixw0AeuzlXt27QQfOLGkkCnhPzE2jWDol7mFb_LZqjq44q-ZCy6EHI8SbkxUVa8GkaviSBaSKm6StczlTcOsxFG15UYGv6_w_iBRSBWbDb0iGkZ861ZpWQ9pi68BrMI7pp1-Qtun7yu9KkRNUOtBW8zd-M4fOZ8jXDNfuyJ66wV0f-dmTScBSzXXEngYU3Pf8rK3IGwGv8KDL5276JfVQSUKhIpAle0cwn75J4jsEja-4uLKvlt4GioSboLYY25X4fY-P27utTgk-laypRbkFjjp8-5-OXmfJ0xR3LoJOzAJvqqF56Y-1oxdrpF20BEljaoHXEKrHeqewN2S3j7qaLxJZ6MIAebQrIiPNbqTLuqF1lUaWAXC1SzVg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://system.olectraexpress.com/api/order-view?tracking_id=LBDL7702312064757",
+					"protocol": "http",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"order-view"
+					],
+					"query": [
+						{
+							"key": "tracking_id",
+							"value": "LBDL7702312064757"
+						},
+						{
+							"key": "tracking_id",
+							"value": "LBDL7702312044470",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order_tracking Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk1Y2JmYzc5ZDRhN2VhNWYyYTA1ODVjMTVhMzY1MzdjOGI2NDk5MWFkOWM2MWJiY2RlOWFiOTRmNzRhNjdlNjIyNGRiNjZmNGRjNzA4MDM1In0.eyJhdWQiOiIyNCIsImp0aSI6Ijk1Y2JmYzc5ZDRhN2VhNWYyYTA1ODVjMTVhMzY1MzdjOGI2NDk5MWFkOWM2MWJiY2RlOWFiOTRmNzRhNjdlNjIyNGRiNjZmNGRjNzA4MDM1IiwiaWF0IjoxNzA1MjEwMDY2LCJuYmYiOjE3MDUyMTAwNjYsImV4cCI6MTczNjgzMjQ2Niwic3ViIjoiNzcxIiwic2NvcGVzIjpbXX0.OQvxrUsEA8gMoTtQpeOxHgMrRSdh5jWNHiTC_8Ui7pTRefUVGlFZcnc01AYUkF8jb8dXdal2RZDPgy73UWZp1Mcq-NkxBjsvcolW-TGFxH5tystIcARUpRmRarJnDRrzr_6wvWWiMvP5uFrsRPwTQF0RLHxrB-yl8CzGk8pfnOEtv2FPAXdFVaDA6J-D79RTZmNUkASDc4g_dxP2EqdKmM1aZpFFeFYseYHGyaLKP1xWExjDQGNlGPYZJ1I3Lc-G3b7veFZSe_KY1Ax5Ak5-lEaJCVejxuglKJ7bORn4FkeZwFFDIjdy1rOJOzliqiP07F6sxJEWeTQ5yAyceMVjl_srUcO5UwKo0ZqPoRoDPm_Ew54nuQe_niaXWigJHRLW5XdK4gUs8sJ6QKnV87W-45ccdlbhNwp7-or7EJu6EZFVJrdEYzRLaWnOg6aTqvUfDvMg2KgBD4h0hifQ0s26y3ubUGDa72gJyndIhYszfOb7fWnvmUgT8u951wMZlpj2869hloLFdUl01o830V83L5GWY_o0seuMDrARUHtba57Xr3AK97I1YwLpeOTfVPsBBEeSVIEAwnZpBLTeFabGRrbIul3yKfzaLc7T_pnG-5hccRiJM3UTa4xlWsQsiG7uWMhIPx3GxDK8EmbURjYl_IofnqOaUs-hefAFhu1Gno8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://system.olectraexpress.com/api/register-merchant?tracking_id=LBDL7702312044470",
+					"protocol": "http",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"register-merchant"
+					],
+					"query": [
+						{
+							"key": "tracking_id",
+							"value": "LBDL7702312044470"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA4ZDBjNGY1YzY2NmUwMjA4MmMzNmQwY2NiNTMwMDYxYWM3ZjkwN2JjM2Q3Y2EzMjBlZDE2MTkyNjkzMTI2OGE2MDdlYWQzOGY5YWIxODFmIn0.eyJhdWQiOiIyNCIsImp0aSI6IjA4ZDBjNGY1YzY2NmUwMjA4MmMzNmQwY2NiNTMwMDYxYWM3ZjkwN2JjM2Q3Y2EzMjBlZDE2MTkyNjkzMTI2OGE2MDdlYWQzOGY5YWIxODFmIiwiaWF0IjoxNzA1MzEzMzM0LCJuYmYiOjE3MDUzMTMzMzQsImV4cCI6MTczNjkzNTczNCwic3ViIjoiMTA1OCIsInNjb3BlcyI6W119.qsr1OOdMNMHuZAjMDVysP-hsIzgNhFtbF4H177X2lAU4ombRsPLyi4zoNmYfGy4L4Pzv7mF25QPdmHb99GrA4JvMNh5QLpMCD8SAKvBPCtYCjFL3GLjsyA4tX8XswUoFmxxgTDu0tCv2I4xJxOUMcl6RClbM4_d4wTeO2yHF-sPwvPsKKqWWXcb9DY6YlXHQAmyY8nDSsVz9H-T2VFMGttWALcOmNyDEPPrtj6Rc23vw8g-IlCwxQnqAF3uAgZ0PidVLn3L9NZGftjlx0F04-lb9vJv2zVJTsG7Lum2a9L6zhezfpBX0PDg5uLMLsHKcz4_c2LH2EeLPyE8hMmoXYvS0O1Rjv_eg5_iEp49h3MsB9jT5TTwf_n6fhmVwMfjvVLV7jGG_L3wNJF3PHpFI3L2QUXkcaTY_q5yEbYEfE9jmDWixtieSY_lNW9GtkG9xxrUyxkTk9FRGoKLUn7yOgRtK25fm1vesuXWxwDSqZGncOTpWiwdpcEe4UoJiz39y7Zgkuc_foNDN2PUY4cHu8pJmGiwI834ngH9PmQAtZIdwuJwzlogyki0iGwlqA-E09A_lzX2iZnemnIpQVKsv6L-hgcE-_USd3tT9j1dWtBYFvx7VI4BKTqPEkmIapp8QOvaKkAOdo9us0M8DhSiAu0XPRzB8-oWFR7wdxdivBtM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Demo_merchants",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "demo@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "01798757411",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "block",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "business_name",
+							"value": "ecomarce",
+							"type": "text"
+						},
+						{
+							"key": "area",
+							"value": "212",
+							"type": "text"
+						},
+						{
+							"key": "district",
+							"value": "47",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/Courierlab_V7.30.6/api/register-merchant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Courierlab_V7.30.6",
+						"api",
+						"register-merchant"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "demo",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "demo@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "mobile",
+							"value": "01798737518",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "block",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"disabled": true
+						},
+						{
+							"key": "area",
+							"value": "212",
+							"disabled": true
+						},
+						{
+							"key": "business_name",
+							"value": "Ecommerce",
+							"disabled": true
+						},
+						{
+							"key": "district",
+							"value": "47",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFhNjU0OTJlZDk5NDc5OGRlOWY1YWUxNjRkZDgyMjkxNjE3ZmJjMzU4NzUwMDgzYzI3MWM3NTdhZTA0NTQ0MDVkZGQ1NGNkZDhiMGRkNTk1In0.eyJhdWQiOiIyNCIsImp0aSI6ImFhNjU0OTJlZDk5NDc5OGRlOWY1YWUxNjRkZDgyMjkxNjE3ZmJjMzU4NzUwMDgzYzI3MWM3NTdhZTA0NTQ0MDVkZGQ1NGNkZDhiMGRkNTk1IiwiaWF0IjoxNzA1MzEyOTAwLCJuYmYiOjE3MDUzMTI5MDAsImV4cCI6MTczNjkzNTMwMCwic3ViIjoiMTA1NyIsInNjb3BlcyI6W119.Dc_rlfru09MwI72Woh2sBaPAzfGNbv3kvTlkGpRKG29sHhp-Nyh-4CKRWJnOFR0pmMH5qh6n10_s1O_Il6_nXmlt8OXPDbZEhwrFOrDmA2-4pcmoCFfD-8Nb5nGkqgFYlXsnC-y7I5apTLOfqcentYq4KpVM9AtD-3IShEkSibMaUMYZOL8CY558niXMaZQgJgkf8c_CznEJEnBU9f5jBElngaiVRKIvVRWI90rOiyduYYSxejywrcWyf8hJ0UbS1vO2m8FQtNtjxk7jgRzENY3G0g0GFyk8vFuJOly_otEqD_onSQUr4PuCaNMJ6iorXdu7tI-99s59kJ_UviWpZap91aVmysmIa8Z2alBkG7D2IPm8bihh6qIeayuesnGaZ111qjpcCimJqSwfcOnt-LuG1wgJFZec1QAiWPUEdybNVzJ19djTpDMjuzQXkD81e_X0Ec9JqVCs_ESaoIboDV6OlqdH2uJP02TB5oz1Um32jGU7Z5og0HM1fZyeb23rUvPtX1m_4vUKQFwfUqjzJnHj6PO_RmORTEXqPqZ_-19ILH6c4MZ_eD8a6jmboiiFjRnKoPilLRRumcWSDhbbbkqM5B-49NIQ8TX_xG1Pqo0A1Z5krOAKj4cnvgDFkfTosF31pHzNldnyahsXTHny3-_bxqLqC48-KRgADi_GjBc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "customer_name",
+							"value": "Nickle",
+							"type": "text"
+						},
+						{
+							"key": "customer_email",
+							"value": "nickle@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "customer_address",
+							"value": "Dhaka",
+							"type": "text"
+						},
+						{
+							"key": "customer_phone",
+							"value": "01767656767",
+							"type": "text"
+						},
+						{
+							"key": "pickup_date",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "pckup_time",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "remarks",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Document",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "up to 1 kg",
+							"type": "text"
+						},
+						{
+							"key": "collection",
+							"value": "100",
+							"type": "text"
+						},
+						{
+							"key": "area",
+							"value": "adabor",
+							"type": "text"
+						},
+						{
+							"key": "imp",
+							"value": "Regular",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://system.olectraexpress.com/api/orderstor",
+					"protocol": "http",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"orderstor"
+					],
+					"query": [
+						{
+							"key": "tracking_id",
+							"value": "LBDL7702312044470",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Arera",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU1MzcwMDA0NmRlMWMzZGVhZjgwMWI1NThmZTAwOTg4YzBiODdmZmY4YWExYmQ0OGIxNTRmOGZmNWI5Mjc3Mjg4NjQ5NDNhMzk3MTYyZTYxIn0.eyJhdWQiOiIyNCIsImp0aSI6IjU1MzcwMDA0NmRlMWMzZGVhZjgwMWI1NThmZTAwOTg4YzBiODdmZmY4YWExYmQ0OGIxNTRmOGZmNWI5Mjc3Mjg4NjQ5NDNhMzk3MTYyZTYxIiwiaWF0IjoxNzA2NTg1OTIxLCJuYmYiOjE3MDY1ODU5MjEsImV4cCI6MTczODIwODMyMSwic3ViIjoiMTEwNSIsInNjb3BlcyI6W119.cXeAQtroZpxSD3B_OIpwF6gmKztJCOjXZ2CV2gFU5x2ir_uN4gK_ZYu4lWGgdYwYAZkARdrRCDyJCHisLRF3uTHLQBGK_LPqJort7FoomzNcGza9b4ECyrqKizrhAFnFHzTlJx7pchGvMZeyPXaP3eJcMHWy6Kkh9023c0QebmjBLAvrQecTamxmyGkN4z1nmLQsGliZlA9XBfp-LR0FbR71gsTiqUo6cxoviqJERRgtOKeMZWVhAlGKrQh7V4AD-zqE4MYwfgow22fCmRpz_-m_lcTBtO42JnkO9kzcI3HlMjPYE5sNxr57Zob0ULfWyNXFxPRJg4fAw2Q0NXDpCzN1SYFnXENSkAieLk_77g4NGqefJU7dKQliUgsQjjXlYagWDaHVExMPHG0fzQFB-3dLsSgCEgE-fTOdJbCrzDpg7gCY_Dz7WQ1aNARTdvDTS_OLorUt7IB9WtKqRvrPA4Dnst2VgLArKT9A_DOdKNk0Wk-wnksaU5mgoquS8Sg81DGlX9pJfA70sGXawZh9c5Gyk5UK_-Y-wzfKAYRM_vu6YFlJ0X7p_qwqw7XHCztogrhnIrUt7gduJpmIBkePdSvGEHV4SWuga-fw7Q9jSEY-uJ7ExkuNOmCzv-wbXJtU89E_rV-Wt2OSERowvXAJyNBY0RnS58ThbXmuKXQ11qE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://system.olectraexpress.com/api/payment-history?fromdate=12.12.23&todate=1.2.24",
+					"protocol": "https",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"payment-history"
+					],
+					"query": [
+						{
+							"key": "fromdate",
+							"value": "12.12.23"
+						},
+						{
+							"key": "todate",
+							"value": "1.2.24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Merchent_register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU1MzcwMDA0NmRlMWMzZGVhZjgwMWI1NThmZTAwOTg4YzBiODdmZmY4YWExYmQ0OGIxNTRmOGZmNWI5Mjc3Mjg4NjQ5NDNhMzk3MTYyZTYxIn0.eyJhdWQiOiIyNCIsImp0aSI6IjU1MzcwMDA0NmRlMWMzZGVhZjgwMWI1NThmZTAwOTg4YzBiODdmZmY4YWExYmQ0OGIxNTRmOGZmNWI5Mjc3Mjg4NjQ5NDNhMzk3MTYyZTYxIiwiaWF0IjoxNzA2NTg1OTIxLCJuYmYiOjE3MDY1ODU5MjEsImV4cCI6MTczODIwODMyMSwic3ViIjoiMTEwNSIsInNjb3BlcyI6W119.cXeAQtroZpxSD3B_OIpwF6gmKztJCOjXZ2CV2gFU5x2ir_uN4gK_ZYu4lWGgdYwYAZkARdrRCDyJCHisLRF3uTHLQBGK_LPqJort7FoomzNcGza9b4ECyrqKizrhAFnFHzTlJx7pchGvMZeyPXaP3eJcMHWy6Kkh9023c0QebmjBLAvrQecTamxmyGkN4z1nmLQsGliZlA9XBfp-LR0FbR71gsTiqUo6cxoviqJERRgtOKeMZWVhAlGKrQh7V4AD-zqE4MYwfgow22fCmRpz_-m_lcTBtO42JnkO9kzcI3HlMjPYE5sNxr57Zob0ULfWyNXFxPRJg4fAw2Q0NXDpCzN1SYFnXENSkAieLk_77g4NGqefJU7dKQliUgsQjjXlYagWDaHVExMPHG0fzQFB-3dLsSgCEgE-fTOdJbCrzDpg7gCY_Dz7WQ1aNARTdvDTS_OLorUt7IB9WtKqRvrPA4Dnst2VgLArKT9A_DOdKNk0Wk-wnksaU5mgoquS8Sg81DGlX9pJfA70sGXawZh9c5Gyk5UK_-Y-wzfKAYRM_vu6YFlJ0X7p_qwqw7XHCztogrhnIrUt7gduJpmIBkePdSvGEHV4SWuga-fw7Q9jSEY-uJ7ExkuNOmCzv-wbXJtU89E_rV-Wt2OSERowvXAJyNBY0RnS58ThbXmuKXQ11qE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "owner",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "bus@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "01798757614",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "block",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "business_name",
+							"value": "demo_buisness",
+							"type": "text"
+						},
+						{
+							"key": "area",
+							"value": "212",
+							"type": "text"
+						},
+						{
+							"key": "district",
+							"value": "47",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/Courierlab_V7.30.6/api/register-merchant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Courierlab_V7.30.6",
+						"api",
+						"register-merchant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "District",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQzZDVjMzdiZDI4NDYyYjg2ZmI4NDI3YjU3YjFlNGE0ZTZlYmEyYWU1ZTYxNGY2YWRiNzE5MmQwZDk5ZGYxYzY1NGZiN2I3MjMzMWJhMmZmIn0.eyJhdWQiOiIyMiIsImp0aSI6IjQzZDVjMzdiZDI4NDYyYjg2ZmI4NDI3YjU3YjFlNGE0ZTZlYmEyYWU1ZTYxNGY2YWRiNzE5MmQwZDk5ZGYxYzY1NGZiN2I3MjMzMWJhMmZmIiwiaWF0IjoxNzA0NTMwMzkyLCJuYmYiOjE3MDQ1MzAzOTIsImV4cCI6MTczNjE1Mjc5Miwic3ViIjoiNzcwIiwic2NvcGVzIjpbXX0.VWhoPg-cb-Y1NKbb4EWcEOnnEUhwUuF2BbeqW5S3Zx-RAAQUuD7zyPARWrohQeF5m-TbuD6WSF3yMadJqxzYSXbP5kq6cQ_Oa7pskuSexHeHC4D3sX7pn77MdYaxNE9G9cmf2NXDUaMio0xM7hOquOW7H3Pj7xSpKUOer_K_BM5a0841hbHJo8d-J6kpADEduTCO0Am0UEtJ6W0hBRp5cprZT_X12N8pkGVvyxXMLme6K0q06IJ29oI5HH6ZMN4m3xWr2jPJNq2hX6awIaIu5OEt179dT964lLp_soj47SagUMMDETixw0AeuzlXt27QQfOLGkkCnhPzE2jWDol7mFb_LZqjq44q-ZCy6EHI8SbkxUVa8GkaviSBaSKm6StczlTcOsxFG15UYGv6_w_iBRSBWbDb0iGkZ861ZpWQ9pi68BrMI7pp1-Qtun7yu9KkRNUOtBW8zd-M4fOZ8jXDNfuyJ66wV0f-dmTScBSzXXEngYU3Pf8rK3IGwGv8KDL5276JfVQSUKhIpAle0cwn75J4jsEja-4uLKvlt4GioSboLYY25X4fY-P27utTgk-laypRbkFjjp8-5-OXmfJ0xR3LoJOzAJvqqF56Y-1oxdrpF20BEljaoHXEKrHeqewN2S3j7qaLxJZ6MIAebQrIiPNbqTLuqF1lUaWAXC1SzVg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://system.olectraexpress.com/api/distList",
+					"protocol": "http",
+					"host": [
+						"system",
+						"olectraexpress",
+						"com"
+					],
+					"path": [
+						"api",
+						"distList"
+					],
+					"query": [
+						{
+							"key": "tracking_id",
+							"value": "LBDL7702312044470",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
