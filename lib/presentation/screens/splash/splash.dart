@@ -61,7 +61,7 @@ class _SplashViewState extends State<SplashView> {
     SizeConfig.init(context);
 
     return Scaffold(
-      backgroundColor: Colormanager.darkPrimary,//Color(0xffB7050A),//Colormanager.red,
+      backgroundColor: Colors.white,//Colormanager.darkPrimary,//Color(0xffB7050A),//Colormanager.red,
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height/3,

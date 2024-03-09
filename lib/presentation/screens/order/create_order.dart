@@ -1406,6 +1406,9 @@
 
 
 
+import 'dart:convert';
+
+import 'package:alhamdulillah_courier_service_merchant/presentation/screens/Create%20order2/create_order_again.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -1421,12 +1424,168 @@ import 'package:alhamdulillah_courier_service_merchant/presentation/screens/orde
 import 'package:alhamdulillah_courier_service_merchant/presentation/screens/resources/color_manager.dart';
 import 'package:alhamdulillah_courier_service_merchant/presentation/screens/resources/fonts_manager.dart';
 import 'package:alhamdulillah_courier_service_merchant/presentation/screens/resources/style_manager.dart';
-
+import 'package:http/http.dart' as http;
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
 
 class CreateOrderView extends GetView<OrderCreateController> {
-  const CreateOrderView({super.key});
+   CreateOrderView({super.key});
+
+   // final Createorder_two profileController = Get.put(Createorder_two());
+
+  TextEditingController _selectedAreaController = TextEditingController();
+   TextEditingController _selectedAreaIdController = TextEditingController();
+   // List<dynamic> _areas = [].obs;
+   // var _areas = [].obs;
+   // var areas = [].obs;
+
+
+   @override
+   void initState() {
+     // _loadAreas();
+   }
+
+   RxList<dynamic> _areas = <dynamic>[].obs;
+
+   List<dynamic> get areas => _areas.toList();
+
+   @override
+   void onInit() {
+     // super.onInit();
+     _loadAreas();
+   }
+
+   Future<void> _loadAreas() async {
+     try {
+       final response = await GetConnect().get('https://system.alhamdulillahcourierservice.com/api/coverage-area');
+
+       if (response.statusCode == 200) {
+         List<dynamic> areas = response.body['data'];
+         print('Data fetched: $areas');
+
+         _areas.assignAll(areas);
+       } else {
+         throw Exception('Failed to load areas');
+       }
+     } catch (e) {
+       print('Error loading areas: $e');
+       // Handle error as needed
+     }
+   }
+
+   // Future<void> _loadAreas() async {
+   //   final response = await http.get(Uri.parse('https://system.alhamdulillahcourierservice.com/api/coverage-area'));
+   //
+   //   if (response.statusCode == 200) {
+   //     List<dynamic> areas = jsonDecode(response.body)['data'];
+   //     // areas = jsonDecode(response.body)['data'];
+   //     print('data fetceh: $areas');
+   //
+   //      setState(() {
+   //       _areas = areas;
+   //      });
+   //   } else {
+   //     throw Exception('Failed to load areas');
+   //   }
+   // }
+
+
+
+   void _showAreaSelector(BuildContext context) {
+     showModalBottomSheet(
+       context: context,
+       builder: (BuildContext context) {
+         return FutureBuilder<void>(
+           future: _loadAreas(),
+           builder: (context, snapshot) {
+             if (snapshot.connectionState == ConnectionState.waiting) {
+               return Center(
+                 child: CircularProgressIndicator(),
+               );
+             } else if (snapshot.hasError) {
+               return Center(
+                 child: Text('Error loading areas: ${snapshot.error}'),
+               );
+             } else {
+               return SingleChildScrollView(
+                 child: Column(
+                   children: _areas.map<Widget>((area) {
+                     return ListTile(
+                       title: Text(area['area']),
+
+                       // onTap: () {
+                       //   // controller.selectArea = area['id'];
+                       //   // String selectedAreaValue = _selectedAreaIdController.text;
+                       //   // controller.selectArea.value = selectedAreaValue;
+                       //
+                       //
+                       //   // controller.selectArea = area['area'];
+                       //  // controller._selectedAreaIdController = area['id'].toString();
+                       //
+                       // _selectedAreaController.text = area['area'];
+                       //   _selectedAreaIdController= area['id'].text;
+                       // // controller.selectArea = int.parse(_selectedAreaIdController.text);//area['id'];
+                       //
+                       // print("Selected Area ID: ${_selectedAreaIdController.text}");
+                       //   Navigator.of(context).pop();
+                       // },
+
+
+                       onTap: () {
+                         _selectedAreaController.text = area['area'];
+                         _selectedAreaIdController.text = area['id'].toString(); // Convert integer to string
+                         print("Selected Area ID: ${_selectedAreaIdController.text}");
+
+                         Get.find<OrderCreateController>().setSelectedAreaId(_selectedAreaIdController.text);
+
+
+                         Navigator.of(context).pop();
+                       },
+
+
+
+                     );
+                   }).toList(),
+                 ),
+               );
+             }
+           },
+         );
+       },
+     );
+   }
+
+
+
+   // void _showAreaSelector(BuildContext context) {
+   //   showModalBottomSheet(
+   //     context: context,
+   //     builder: (BuildContext context) {
+   //       if (_areas.isEmpty) {
+   //         return Center(
+   //           child: CircularProgressIndicator(),
+   //         );
+   //       } else {
+   //         return SingleChildScrollView(
+   //           child: Column(
+   //             children: _areas.map<Widget>((area) {
+   //               return ListTile(
+   //                 title: Text(area['area']),
+   //                 onTap: () {
+   //                   _selectedAreaController.text = area['area'];
+   //                   _selectedAreaIdController.text = area['id'].toString();
+   //                   print("Selected Area ID: ${_selectedAreaIdController.text}");
+   //                   Navigator.of(context).pop();
+   //                 },
+   //               );
+   //             }).toList(),
+   //           ),
+   //         );
+   //       }
+   //     },
+   //   );
+   // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -1879,6 +2038,255 @@ class CreateOrderView extends GetView<OrderCreateController> {
                           // ),
                         ],
                       ),
+
+
+
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                           'Area',
+                            style: getSemiBoldStyle(
+                                color: Colormanager.lightGrey,
+                                fontSize: AppSize.s16),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              controller: _selectedAreaController,
+                              decoration: InputDecoration(
+                                labelText: 'Selected Area',
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  onPressed: () {
+                                    _showAreaSelector(context);
+                                  },
+                                ),
+                              ),
+                              readOnly: true,
+                            ),
+
+
+                          ),
+                        ],
+                      ),
+
+
+
+
+
+                      // const SizedBox(
+                      //   height: AppSize.s10,
+                      // ),
+                      // Column(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text.rich(
+                      //       TextSpan(
+                      //         children: [
+                      //           TextSpan(
+                      //             text: 'Area',
+                      //             style: getSemiBoldStyle(
+                      //                 color: Colormanager.lightGrey,
+                      //                 fontSize: AppSize.s14),
+                      //           ),
+                      //           TextSpan(
+                      //             text: AppStrings.star,
+                      //             style: getSemiBoldStyle(
+                      //                 color: Colormanager.red,
+                      //                 fontSize: AppSize.s14),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     DropdownSearch<CoverageArea>(
+                      //
+                      //       popupProps: PopupProps.menu(
+                      //         showSearchBox: true,
+                      //         // disabledItemFn: (String s) => s.startsWith('I'),
+                      //         searchFieldProps: TextFieldProps(
+                      //
+                      //           style: getBoldStyle(
+                      //               color: Colormanager.black,
+                      //               fontSize: FontSize.s15),
+                      //
+                      //         ),
+                      //         itemBuilder: (context, item, isSelected) =>
+                      //         isSelected
+                      //             ? Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Text(
+                      //             item.district!,
+                      //             style: getBoldStyle(
+                      //                 color: Colormanager.primary),
+                      //           ),
+                      //         )
+                      //             : Container(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           margin: const EdgeInsets.only(
+                      //               bottom: 4),
+                      //           color: Colormanager.lightGrey
+                      //               .withOpacity(0.2),
+                      //           child: Text(
+                      //             item.district!,
+                      //             style: getBoldStyle(
+                      //                 color: Colormanager.black,
+                      //                 fontSize: FontSize.s15),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       items: controller.coverageAreas,
+                      //
+                      //       dropdownDecoratorProps: DropDownDecoratorProps(
+                      //         baseStyle:
+                      //         getSemiBoldStyle(color: Colormanager.black),
+                      //         dropdownSearchDecoration: const InputDecoration(
+                      //           // labelText: "Menu mode",
+                      //           // hintText: "country in menu mode",
+                      //
+                      //         ),
+                      //       ),
+                      //       onChanged: (value) {
+                      //         controller.selectedDistrict = value;
+                      //         controller.selectDistrict.value =
+                      //             value!.district.toString();
+                      //
+                      //         // Pass selected district as an integer
+                      //         // int parsedDistrictId = int.tryParse(value!.district.toString()) ?? 0;
+                      //         // controller.selectDistrictId.value = parsedDistrictId;
+                      //
+                      //
+                      //       },
+                      //       itemAsString: (item) => item.district.toString(),
+                      //       // districtId: int.tryParse(selectDistrict.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0,
+                      //
+                      //
+                      //       // selectedItem: controller.selectArea.value,
+                      //     ),
+                      //
+                      //     // SearchField<District>(
+                      //     //   suggestions: controller.districts
+                      //     //       .map(
+                      //     //         (e) => SearchFieldListItem<District>(
+                      //     //           e.name.toString(),
+                      //     //           item: e,
+                      //     //           // Use child to show Custom Widgets in the suggestions
+                      //     //           // defaults to Text widget
+                      //     //           child: Padding(
+                      //     //             padding: const EdgeInsets.all(8.0),
+                      //     //             child: Row(
+                      //     //               children: [
+                      //     //                 const SizedBox(
+                      //     //                   width: 10,
+                      //     //                 ),
+                      //     //                 Text(e.name.toString()),
+                      //     //               ],
+                      //     //             ),
+                      //     //           ),
+                      //     //         ),
+                      //     //       )
+                      //     //       .toList(),
+                      //     //   suggestionState: Suggestion.expand,
+                      //     //   textInputAction: TextInputAction.next,
+                      //     //   hint: 'SearchField Example 2',
+                      //     //   hasOverlay: false,
+                      //     //   searchStyle: TextStyle(
+                      //     //     fontSize: 18,
+                      //     //     color: Colors.black.withOpacity(0.8),
+                      //     //   ),
+                      //     //   validator: (x) {
+                      //     //     if (x!.isEmpty) {
+                      //     //       return 'Please Enter a valid State';
+                      //     //     }
+                      //     //     return null;
+                      //     //   },
+                      //     //   searchInputDecoration: InputDecoration(
+                      //     //     focusedBorder: OutlineInputBorder(
+                      //     //       borderSide: BorderSide(
+                      //     //         color: Colors.black.withOpacity(0.8),
+                      //     //       ),
+                      //     //     ),
+                      //     //     border: const OutlineInputBorder(
+                      //     //       borderSide: BorderSide(color: Colors.red),
+                      //     //     ),
+                      //     //   ),
+                      //     //   maxSuggestionsInViewPort: 6,
+                      //     //   itemHeight: 50,
+                      //     //   onSuggestionTap: (newValue) {
+                      //     //     controller.selectedDistrict = newValue.item;
+                      //     //     controller.selectDistrict.value =
+                      //     //         newValue.item!.name.toString();
+                      //     //     controller.getCoverageAreas(newValue.item!.id!);
+                      //     //   },
+                      //     // ),
+                      //
+                      //     //Selecttor in Shop
+                      //     // Container(
+                      //     //   padding: const EdgeInsets.all(AppPadding.p4),
+                      //     //   decoration: BoxDecoration(
+                      //     //     shape: BoxShape.rectangle,
+                      //     //     border: Border.all(
+                      //     //         width: AppSize.s1_5,
+                      //     //         color: Colormanager.grey),
+                      //     //     borderRadius: const BorderRadius.all(
+                      //     //       Radius.circular(AppSize.s8),
+                      //     //     ),
+                      //     //   ),
+                      //     //   child: Obx(() => DropdownButton<District>(
+                      //     //         //isDense: true,
+                      //     //         hint: Text(
+                      //     //           controller.selectDistrict.value,
+                      //     //           style: getSemiBoldStyle(
+                      //     //             color: Colormanager.black,
+                      //     //           ),
+                      //     //         ),
+                      //     //         value: controller.selectedDistrict,
+                      //
+                      //     //         icon: Padding(
+                      //     //           padding:
+                      //     //               const EdgeInsets.only(left: 15.0),
+                      //     //           child: Icon(
+                      //     //             Icons.arrow_drop_down,
+                      //     //             color: Colors.grey[600],
+                      //     //           ),
+                      //     //         ),
+                      //     //         iconSize: 30,
+                      //     //         elevation: 16,
+                      //     //         isExpanded: true,
+                      //     //         style: const TextStyle(
+                      //     //           color: Colors.black,
+                      //     //         ),
+                      //     //         underline: Container(
+                      //     //           height: 0,
+                      //     //         ),
+                      //     //         onChanged: (District? newValue) {
+                      //     //           controller.selectedDistrict = newValue;
+                      //     //           controller.selectDistrict.value =
+                      //     //               newValue!.name.toString();
+                      //     //           controller.getCoverageAreas(newValue.id!);
+                      //     //         },
+                      //     //         items: controller.districts
+                      //     //             .map<DropdownMenuItem<District>>(
+                      //     //                 (District? value) {
+                      //     //           return DropdownMenuItem<District>(
+                      //     //             value: value,
+                      //     //             child: Text(
+                      //     //               '${value!.name}',
+                      //     //               style: getSemiBoldStyle(
+                      //     //                   color: Colormanager.black),
+                      //     //             ),
+                      //     //           );
+                      //     //         }).toList(),
+                      //     //       )),
+                      //     // ),
+                      //   ],
+                      // ),
+
 
                       // const SizedBox(
                       //   height: AppSize.s10,

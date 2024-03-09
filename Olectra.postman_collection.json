@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://system.olectraexpress.com/api/distList",
+					"raw": "https://system.alhamdulillahcourierservice.com/api/distList",
 					"protocol": "http",
 					"host": [
 						"system",

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:alhamdulillah_courier_service_merchant/data/local/storage_healper.dart';
 import 'package:get/get.dart';
 import 'package:alhamdulillah_courier_service_merchant/data/utils/base_url.dart';
 import 'package:http/http.dart' as http;
@@ -56,7 +57,10 @@ class LoginApi extends GetConnect {
 
       final response = await http.post(
         Uri.parse('${BaseUrl.baseUrl}/login'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${StorageHelper.getString(key: 'token')}'
+      },
         body: jsonEncode(requestBody),
       );
 
@@ -65,7 +69,9 @@ class LoginApi extends GetConnect {
         print("Login successful!");
         return response.body;
       } else {
-        print("Login failed. Status code: ${response.statusCode}");
+        print("Login failed !! Password is wrong");
+
+        // print("Login failed. Status code: ${response.statusCode}");
 
         // Check if there's an error message in the response body
         final dynamic errorBody = response.body;

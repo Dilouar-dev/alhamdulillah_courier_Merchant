@@ -391,7 +391,7 @@ class _PaymentInfoAddScreenState extends State<PaymentInfoAddScreen> {
       String accountNumber,
       String routingNumber,
       ) async {
-    final String apiUrl = 'http://system.olectraexpress.com/api/payment-info-add';
+    final String apiUrl = 'https://system.alhamdulillahcourierservice.com/api/payment-info-add';
 
     final Uri apiUri = Uri.parse('$apiUrl?p_type=$paymentType&bank_name=$bankName'
         '&branch_name=$branchName&account_holder_name=$accountHolderName'

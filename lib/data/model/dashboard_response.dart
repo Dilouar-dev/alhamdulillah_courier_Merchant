@@ -33,6 +33,9 @@ class Data {
   int? toHoldReschedule;
   num? paymentProcessing;
   num? paymentComplete;
+  int? t_transit;
+  int? to_transit;
+  int? pickupreqst;
 
   Data(
       {this.tDalivery,
@@ -41,7 +44,9 @@ class Data {
       this.toCancel,
       this.tReturn,
       this.toReturn,
-      this.tHoldReschedule,
+        this.t_transit,
+        this.to_transit,
+        this.tHoldReschedule,
       this.toHoldReschedule,
       this.paymentProcessing,
       this.paymentComplete});
@@ -57,6 +62,8 @@ class Data {
     toHoldReschedule = json['to_hold_reschedule'];
     paymentProcessing = json["paymentProcessing"];
     paymentComplete = json["paymentComplete"];
+    t_transit = json["todayorderTransit"];
+    to_transit = json["totalorderTransit"];
   }
 
   Map<String, dynamic> toJson() {

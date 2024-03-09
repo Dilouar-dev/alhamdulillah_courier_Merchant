@@ -5,7 +5,7 @@ class ImageAssets {
   // static const String splashLogo = '$IMAGE_PATH/logo.png';
   // static const String splashLogo = '$IMAGE_PATH/splash_logo.png';
 
-  static const String splashLogo = '$IMAGE_PATH/alhamdulillah_logo.jpg';
+  static const String splashLogo = '$IMAGE_PATH/alhamdulillah_logo-nobg.png';
 
 
   static const String onBoardingLogo1 = '$IMAGE_PATH/onboarding_logo1.svg';

@@ -33,14 +33,19 @@ class OrderCreateController extends GetxController {
   List<Weight> weights = <Weight>[].obs;
 
   Shop? selectedShop;
-  CoverageArea? selectedArea;
+  // CoverageArea? selectedArea;
+  CoverageArea? _selectedAreaController;
+  // CoverageArea? _selectedAreaIdController;
   CoverageArea? selectedDistrict;
   ProductType? selectedCatefory;
   PickupTime? selectedPickupTime;
   Weight? selectedWeight;
   var selectShop = '--- Select Shop ---'.obs;
   var selectDistrict = '--- Select District ---'.obs;
-  var selectArea = '--- Select Area ---'.obs;
+  // var _selectedAreaIdController = '--- Select District ---'.obs;
+
+  // var selectArea = '--- Select Area ---'.obs;
+
   var selectCategory = '--- Select Category ---'.obs;
   var selectPickupTime = '--- Select Pickup Time ---'.obs;
   var selectWeight = '--- up to 1 kg---'.obs;
@@ -65,6 +70,8 @@ class OrderCreateController extends GetxController {
   TextEditingController addressController = TextEditingController();
   TextEditingController collectionController = TextEditingController();
   TextEditingController deliveryNoteController = TextEditingController();
+  TextEditingController _selectedAreaIdController = TextEditingController();
+
   String id ='';
   // int id;
 
@@ -83,6 +90,11 @@ class OrderCreateController extends GetxController {
     }
     return null;
   }
+
+  void setSelectedAreaId(String areaId) {
+    _selectedAreaIdController.text = areaId;
+  }
+
 
   //Phone Validation
   String? validatePhone(String value) {
@@ -166,6 +178,13 @@ class OrderCreateController extends GetxController {
     if (!validation) {
       return;
     }
+
+    print('selectedDistrict: $selectedDistrict');
+    print('selectedCatefory: $selectedCatefory');
+    print('selectedWeight: $selectedWeight');
+    print('selectedPickupTime: $selectedPickupTime');
+    print('_selectedAreaIdController.text: ${_selectedAreaIdController.text}');
+
     if (selectedDistrict == null) {
       customSnakebar(
           title: AppStrings.errorTitle,
@@ -207,23 +226,28 @@ class OrderCreateController extends GetxController {
       String note = deliveryNoteController.text ?? '-';
       String type = selectType.toString() == 'Express' ? 'Urgent' : 'Regular';
       int isPartial = isPertial.value == true ? 1 : 0;
+      int? selectedArea = int.tryParse(_selectedAreaIdController.text);
 
       Order order = Order(
-          shop: selectShop.toString(),
+          shop: 'jj',//selectShop.toString(),
           customerName: name,
           customerPhone: phone,
           customerAddress: address,
           type: type,
           district: selectDistrict.toString(),
           // districtId: parsedDistrictId,
-          // area: 'dhaka',//selectArea.toString(),
+          area:_selectedAreaController.toString(),
+          areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
           category: selectCategory.toString(),
           weight: selectWeight.toString(),
           pickupTime: selectPickupTime.toString(),
           pickupDate: selectedDate.toString(),
           colection: int.parse(collection.toString()),
           isPartial: isPartial,
-          remarks: note);
+          remarks: note
+      );
+
+      print(order != null ? order.toJson() : 'Order object is null');
 
 
 
@@ -237,7 +261,7 @@ class OrderCreateController extends GetxController {
       print("District: ${order.district}");
       print("District Id: ${order.districtId}");
 
-      print("Area: ${order.area}");
+      print("Area: ${order.areaId}");
       print("Category: ${order.category}");
       print("Weight: ${order.weight}");
       print("Pickup Time: ${order.pickupTime}");
@@ -246,6 +270,114 @@ class OrderCreateController extends GetxController {
       print("Is Partial: ${order.isPartial}");
       print("Remarks: ${order.remarks}");
       getCreateOrder(order);
+
+      void getVlidation() {
+        final validation = formKey.currentState!.validate();
+        if (!validation) {
+          return;
+        }
+
+        print('selectedDistrict: $selectedDistrict');
+        print('selectedCatefory: $selectedCatefory');
+        print('selectedWeight: $selectedWeight');
+        print('selectedPickupTime: $selectedPickupTime');
+        print('_selectedAreaIdController.text: ${_selectedAreaIdController.text}');
+
+        if (selectedDistrict == null) {
+          customSnakebar(
+              title: AppStrings.errorTitle,
+              description: 'District Not Selected',
+              color: Colormanager.red,
+              icon: Icons.error);}
+        // else if (selectedArea == null) {
+        //   customSnakebar(
+        //       title: AppStrings.errorTitle,
+        //       description: 'Area Not Selected',
+        //       color: Colormanager.red,
+        //       icon: Icons.error);
+        // }
+        else if (selectedCatefory == null) {
+          customSnakebar(
+              title: AppStrings.errorTitle,
+              description: 'Category Not Selected',
+              color: Colormanager.red,
+              icon: Icons.error);
+        } else if (selectedWeight == null) {
+          customSnakebar(
+              title: AppStrings.errorTitle,
+              description: 'Weight Not Selected',
+              color: Colormanager.red,
+              icon: Icons.error);
+        }
+        else if (selectedPickupTime == null) {
+          customSnakebar(
+              title: AppStrings.errorTitle,
+              description: 'Pickup Time Not Selected',
+              color: Colormanager.red,
+              icon: Icons.error);
+        }
+        else {
+          String name = nameController.text;
+          String phone = phoneController.text;
+          String address = addressController.text;
+          String collection = collectionController.text;
+          String note = deliveryNoteController.text ?? '-';
+          String type = selectType.toString() == 'Express' ? 'Urgent' : 'Regular';
+          int isPartial = isPertial.value == true ? 1 : 0;
+          int? selectedArea = int.tryParse(_selectedAreaIdController.text);
+
+          Order order = Order(
+              shop: 'jj',//selectShop.toString(),
+              customerName: name,
+              customerPhone: phone,
+              customerAddress: address,
+              type: type,
+              district: selectDistrict.toString(),
+              // districtId: parsedDistrictId,
+              area:_selectedAreaController.toString(),
+              areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
+              category: selectCategory.toString(),
+              weight: selectWeight.toString(),
+              pickupTime: selectPickupTime.toString(),
+              pickupDate: selectedDate.toString(),
+              colection: int.parse(collection.toString()),
+              isPartial: isPartial,
+              remarks: note
+          );
+
+          print(order != null ? order.toJson() : 'Order object is null');
+
+
+
+          print("Created");
+          print("Order Details:");
+          print("Shop: ${order.shop}");
+          print("Customer Name: ${order.customerName}");
+          print("Customer Phone: ${order.customerPhone}");
+          print("Customer Address: ${order.customerAddress}");
+          print("Type: ${order.type}");
+          print("District: ${order.district}");
+          print("District Id: ${order.districtId}");
+
+          print("Area: ${order.areaId}");
+          print("Category: ${order.category}");
+          print("Weight: ${order.weight}");
+          print("Pickup Time: ${order.pickupTime}");
+          print("Pickup Date: ${order.pickupDate}");
+          print("Collection: ${order.colection}");
+          print("Is Partial: ${order.isPartial}");
+          print("Remarks: ${order.remarks}");
+          getCreateOrder(order);
+
+          nameController.clear();
+          phoneController.clear();
+          addressController.clear();
+          collectionController.clear();
+          deliveryNoteController.clear();
+
+        }
+      }
+
 
     }
   }
@@ -273,6 +405,7 @@ class OrderCreateController extends GetxController {
             description: error.toString(),
             color: Colormanager.red,
             icon: Icons.error);
+        print("Error occurred: $error");
       });
     } catch (error) {
       Get.back();
@@ -297,13 +430,16 @@ class OrderCreateController extends GetxController {
 
     selectedShop = null;
     selectedDistrict = null;
-    selectedArea = null;
+    _selectedAreaController = null;
+    _selectedAreaIdController.dispose() ;
     selectedCatefory = null;
     // selectedPickupTime = null;
     selectedWeight = null;
     selectShop.value = '--- Select Shop ---';
-    selectDistrict.value = '--- Select District ---';
-    selectArea.value = '--- Select Area ---';
+    selectDistrict.value = '-- Select District---';
+    // selectArea = '--- Select Area ---';
+    // selectArea;
+
     selectCategory.value = '--- Select Category ---';
     selectPickupTime.value = '--- Select Pickup Time ---';
     selectWeight.value = '--- Select Weight ---';

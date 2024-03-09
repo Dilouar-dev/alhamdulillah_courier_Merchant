@@ -11,13 +11,15 @@ class SingleOperationCard extends StatelessWidget {
     required this.title1,
     required this.title2,
     required this.value,
+    required this.value2,
     required this.left,
     required this.right,
     required this.color,
   }) : super(key: key);
 
   final VoidCallback press1;
-  final String title1, title2, value;
+  // final String title1, title2, value;
+  final String title1, title2, value, value2;
   final double left;
   final double right;
   final Color color;
@@ -56,12 +58,25 @@ class SingleOperationCard extends StatelessWidget {
                 const SizedBox(
                   height: AppSize.s28,
                 ),
-                Text(
-                  value,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: getBoldStyle(
-                      color: Colormanager.white, fontSize: FontSize.s20),
+                Row(
+                  children: [
+                    Text(
+                      '$value - ',
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: getBoldStyle(
+                          color: Colormanager.white, fontSize: FontSize.s14),
+                    ),
+                    Text(
+                      ' $value2',
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: getBoldStyle(
+                          color: Colormanager.white, fontSize: FontSize.s20),
+                    ),
+
+
+                  ],
                 ),
                 const SizedBox(
                   height: AppSize.s28,

@@ -567,7 +567,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController(), permanent: false);
     return Scaffold(
-      backgroundColor: Colormanager.darkPrimary,
+      backgroundColor: Colors.white,//Colormanager.darkPrimary,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20, vertical:AppPadding.p30),
@@ -721,6 +721,7 @@ class _LoginViewState extends State<LoginView> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),                    // boxShadow: <BoxShadow>[
+                    border: Border.all(color: Colormanager.darkPrimary,width: 2.5),
                     //   BoxShadow(
                     //       color: Colors.grey.shade200,
                     //       offset: const Offset(2, 4),
@@ -749,7 +750,7 @@ class _LoginViewState extends State<LoginView> {
                 child: Text(
                   AppStrings.forgetLink,
                   style: getRegularStyle(
-                      color: Colors.white, fontSize: FontSize.s12),
+                      color: Colormanager.black, fontSize: FontSize.s12),
                 ),
               ),
               Container(
@@ -864,7 +865,7 @@ class _LoginViewState extends State<LoginView> {
                     children: <Widget>[
                       Text(AppStrings.donhaveAccount,
                           style: getBoldStyle(
-                            color: Colors.white,
+                            color: Colormanager.darkPrimary,
                             fontSize: FontSize.s12,
                           )),
                       const SizedBox(

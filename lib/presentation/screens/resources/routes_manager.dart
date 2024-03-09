@@ -1,3 +1,5 @@
+import 'package:alhamdulillah_courier_service_merchant/presentation/screens/Create%20order2/Dashboard_Api_Screen.dart';
+import 'package:alhamdulillah_courier_service_merchant/presentation/screens/Dashboard2/dashboard_new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:alhamdulillah_courier_service_merchant/data/bindings/incomplete_bindings.dart';
@@ -107,7 +109,7 @@ class AppPages {
     ),
     GetPage(
         name: Routes.homeRoute,
-        page: () => const HomeView(),
+        page: () =>  Dashboard_new(),//Dashboard_apiScreen(),//const HomeView(),
         binding: DashboardBindings()),
     GetPage(
         name: Routes.shop,
@@ -115,7 +117,7 @@ class AppPages {
         binding: ShopBindings()),
     GetPage(
         name: Routes.createOrder,
-        page: () => const CreateOrderView(),
+        page: () =>   CreateOrderView(),//CreateOrderView(),//CreateOrderTwo(),
         binding: OrderBindings()),
     // GetPage(
     //     name: Routes.order,

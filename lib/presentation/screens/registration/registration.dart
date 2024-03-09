@@ -463,6 +463,8 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _selectedBusinessTypeController = TextEditingController();
+
 
   // String? selectedBranch;
   List<String> branches = []; // List to store branch names
@@ -487,7 +489,7 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Future<void> _fetchDistricts() async {
-    final response = await http.get(Uri.parse('http://system.olectraexpress.com/api/distList'));
+    final response = await http.get(Uri.parse('https://system.alhamdulillahcourierservice.com/api/distList'));
     if (response.statusCode == 200) {
       setState(() {
         _districts = json.decode(response.body)['data'];
@@ -525,9 +527,37 @@ class _RegisterViewState extends State<RegisterView> {
       },
     );
   }
+  void _showBusinessTypeSelector(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                title: Text('FCommerce'),
+                onTap: () {
+                  _selectedBusinessTypeController.text = 'FCommerce';
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: Text('FCommerce'),
+                onTap: () {
+                  _selectedBusinessTypeController.text = 'ECommerce';
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Future<void> _loadAreas() async {
-    final response = await http.get(Uri.parse('https://system.olectraexpress.com/api/coverage-area'));
+    print('start API');
+    final response = await http.get(Uri.parse('https://system.alhamdulillahcourierservice.com/api/coverage-area'));
 
     if (response.statusCode == 200) {
       List<dynamic> areas = jsonDecode(response.body)['data'];
@@ -572,7 +602,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   // Fetch district data from API
   Future<void> fetchDistricts() async {
-    final response = await http.get(Uri.parse('http://system.olectraexpress.com/api/distList'));
+    final response = await http.get(Uri.parse('https://system.alhamdulillahcourierservice.com/api/distList'));
     if (response.statusCode == 200) {
       setState(() {
         _districts = json.decode(response.body)['data'];
@@ -681,7 +711,7 @@ class _RegisterViewState extends State<RegisterView> {
   Future<List<String>> fetchBranches() async {
     try {
       final response = await http.get(
-        Uri.parse('http://system.olectraexpress.com/api/distList'),
+        Uri.parse('https://system.alhamdulillahcourierservice.com/api/distList'),
         headers: {
           'Accept': 'application/json',
         },
@@ -809,7 +839,7 @@ class _RegisterViewState extends State<RegisterView> {
 
     // Make the HTTP POST request
     final response = await http.post(
-      Uri.parse('http://system.olectraexpress.com/api/register-merchant'),
+      Uri.parse('https://system.alhamdulillahcourierservice.com/api/register-merchant'),
       headers: {
         'Accept': 'application/json',
         'Content-type': 'application/x-www-form-urlencoded',
@@ -821,20 +851,41 @@ class _RegisterViewState extends State<RegisterView> {
     // Handle the response
     if (response.statusCode == 200) {
       // Request successful, handle the response data10
+      Future.delayed(Duration(seconds: 2), () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.lightBlue,
+            content: Text(
+              'Registration done successfully',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      });
+
       print('API request successful');
       print('Response data: ${response.body}');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.lightBlue,
-          content: Text(
-            'Registration done successfully',
-            style: TextStyle(color: Colors.white),
+      Future.delayed(Duration(seconds: 2), () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.lightBlue,
+            content: Text(
+              'Registration done successfully',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
-        ),
-      );
+        );
+      });
+      Get.to(()=>LoginView());
+
+
+
+
 
       // Navigator.of(context).pop();
-      Get.to(LoginView());
+      // Get.to(()=>LoginView());
+      // Navigator.of(context).pop();
+
 
       // Add logic to handle the response data as needed
     } else {
@@ -851,10 +902,11 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       );
 
+
+
       // Add logic to handle the error as needed
     }
 
-    Navigator.of(context).pop();
 
   }
 
@@ -890,11 +942,35 @@ class _RegisterViewState extends State<RegisterView> {
                   decoration: const InputDecoration(labelText: 'Name'),
                 ),
               ),
+              // Text('Business Type', style: TextStyle(fontSize: 20),),
+
+
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: TextField(
+              //     onTap: (){
+              //       _showBusinessTypeSelector(context);
+              //
+              //     },
+              //
+              //     controller: _selectedBusinessTypeController,
+              //     decoration: InputDecoration(
+              //       labelText: 'Selected Business Type',
+              //       suffixIcon: IconButton(
+              //         icon: Icon(Icons.arrow_drop_down),
+              //         onPressed: () {
+              //           _showBusinessTypeSelector(context);
+              //         },
+              //       ),
+              //     ),
+              //     readOnly: true,
+              //   ),
+              // ),
               // DropDownButton for selecting branch
               // Assuming branches are fetched from somewhere
               // You need to implement this
               // For simplicity, I'm using a simple TextFormField for demonstration
-              Text('Branch', style: TextStyle(fontSize: 20),),
+              Text('District', style: TextStyle(fontSize: 20),),
 
 
               Padding(

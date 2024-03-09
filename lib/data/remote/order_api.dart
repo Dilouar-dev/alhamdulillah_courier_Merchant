@@ -211,7 +211,7 @@ class OrderApi extends GetConnect {
   Future<dynamic> getDistArea({required int Id}) => http
       .get(
     // Uri.parse('${BaseUrl.baseUrl}/dist-area?id=$Id'),
-    Uri.parse('http://system.olectraexpress.com/api/coverage-area'),
+    Uri.parse('https://system.alhamdulillahcourierservice.com/api/coverage-area'),
 
     // Uri.parse('${BaseUrl.baseUrl}/coverage-area'),
 
@@ -289,7 +289,7 @@ class OrderApi extends GetConnect {
         'customer_address': order.customerAddress,
         'shop': order.shop,
         'district':order.district,
-        'area': 'dhaka',//order.area,
+        'area': order.area,
         'category': order.category,
         'weight': order.weight,
         'collection': order.colection.toString(),
@@ -299,7 +299,12 @@ class OrderApi extends GetConnect {
         'imp': order.type.toString(),
         'isPartial': order.isPartial.toString(),
       })
-      .then((value) => value.body)
+      // .then((value) => value.body)
+      .then((response) {
+    // Print response in console
+    print(response.body);
+    return response.body;
+  })
       .onError((error, stackTrace) => Future.error(error.toString()));
 }
 

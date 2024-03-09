@@ -3,7 +3,12 @@ import 'package:alhamdulillah_courier_service_merchant/presentation/screens/gb_w
 import 'package:alhamdulillah_courier_service_merchant/presentation/screens/resources/values_manager.dart';
 
 class OperationCardRow extends StatelessWidget {
-  final String title1, value1, value2, title2, header;
+  // final String title1, value1, value2, title2, header;
+  final String title1, value1, value2, value3,
+       title2, header;
+
+  final String value4;
+
   final String icon1, icon2;
   final VoidCallback press1, press2;
   final Color color1, color2;
@@ -14,6 +19,8 @@ class OperationCardRow extends StatelessWidget {
     required this.header,
     required this.value1,
     required this.value2,
+    required this.value3,
+    required this.value4,
     required this.icon1,
     required this.icon2,
     required this.press1,
@@ -36,6 +43,7 @@ class OperationCardRow extends StatelessWidget {
             title1: title1,
             title2: header,
             value: value1,
+            value2: value3,
             right: AppMargin.m10,
             left: AppMargin.m0,
             color: color1,
@@ -45,6 +53,7 @@ class OperationCardRow extends StatelessWidget {
             title1: title2,
             title2: header,
             value: value2,
+            value2: value4,
             right: AppMargin.m0,
             left: AppMargin.m10,
             color: color2,

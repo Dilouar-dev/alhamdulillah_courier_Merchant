@@ -25,7 +25,7 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
   }
 
   Future<void> fetchOrderHistory() async {
-    final apiUrl = "http://system.olectra.com.bd/api/order-view";//"http://system.olectra.com.bd/api/order-view";
+    final apiUrl = "https://system.alhamdulillahcourierservice.com/api/order-view";//"http://system.olectra.com.bd/api/order-view";
     final queryParams = {'tracking_id': widget.trackingId};
     final uri = Uri.parse(apiUrl).replace(queryParameters: queryParams);
 

@@ -693,7 +693,7 @@ class NavigationBarDrawer extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colormanager.darkPrimary,
+                color: Colors.white,//Colormanager.darkPrimary,
               ),
               child: Image.asset(
                 ImageAssets.splashLogo,

@@ -39,14 +39,24 @@ class AppStrings {
   static const formMessage = 'Some fields are missing or invalid. ';
   static const formTitle = 'Invalid Form';
 
-  static const dComplete = "Delivery Complete";
-  static const pCancel = "Pickup Cancel";
+  // static const dComplete = "Delivery Complete";
+  // static const pCancel = "Pickup Cancel";
+  // static const today = 'Today';
+  // static const dreturn = 'Delivery Return';
+  // static const holdandRescheduled = 'Hold & Reschedule';
+  // static const total = 'Total';
+  // static const pProcessing = 'Payment Processing';
+  // static const pComplete = 'Payment Complete';
+
+
+  static const dComplete = "Delivery Amount";//"Delivery Complete";
+  static const pRqst = "Pickup Request";
   static const today = 'Today';
   static const dreturn = 'Delivery Return';
-  static const holdandRescheduled = 'Hold & Reschedule';
+  static const transit = 'Transit';
   static const total = 'Total';
   static const pProcessing = 'Payment Processing';
-  static const pComplete = 'Payment Complete';
+  static const pComplete = 'Paid Amount';//'Payment Complete';
 
   static const errorTitle = 'Error !!';
   static const successTitle = 'Success !!';
