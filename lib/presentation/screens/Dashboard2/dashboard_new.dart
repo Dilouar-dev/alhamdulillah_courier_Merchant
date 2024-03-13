@@ -715,768 +715,727 @@ class _Dashboard_newState extends State<Dashboard_new> {
         ],
       ),
       drawer: NavigationBarDrawer(),
-      body: errorMessage != null
-          ? Center(
-        child: Text(errorMessage!),
-      )
-          : responseData == null
-          ? Center(
-        child: CircularProgressIndicator(),
-      )
-          : SingleChildScrollView(
-        // child: Column(
-        //   children: [
-        //
-        //
-        //     Padding(
-        //       padding: const EdgeInsets.all(8.0),
-        //       child: Container(
-        //                   child: Row(
-        //                               mainAxisAlignment: MainAxisAlignment.center,
-        //                               children: [
-        //
-        //                                 GestureDetector(
-        //                                   onTap: () {
-        //                                     showDialog(
-        //                                       context: context,
-        //                                       builder: (BuildContext context) {
-        //
-        //                   _fetchPickupAddress().then((pickupAddress) {
-        //                     // Fill the pickup address TextField with the fetched address
-        //                     _pickupAddressController.text = pickupAddress ?? '';
-        //                   }).catchError((error) {
-        //                     print('Error fetching pickup address: $error');
-        //                   });
-        //
-        //
-        //                   return AlertDialog(
-        //                     key: _formKey,
-        //
-        //                     backgroundColor: Colors.white,
-        //                     title: Text('Enter Text'),
-        //                     content: Column(
-        //                       mainAxisSize: MainAxisSize.min,
-        //                       children: [
-        //                         Text('Pickup Address'),
-        //                         TextField(
-        //                           readOnly: true,
-        //                           controller: _pickupAddressController,
-        //                           decoration: InputDecoration(
-        //                               hintText: 'Pickup Address',
-        //                               hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        //                         ),
-        //                         SizedBox(height: 15),
-        //                         Text('Note'),
-        //
-        //                         TextField(
-        //                           controller: _noteController,
-        //                           decoration: InputDecoration(labelText: 'Note'),
-        //                         ),
-        //                         SizedBox(height: 15),
-        //                         Text('Estimated Parcel'),
-        //
-        //                         TextField(
-        //                           controller: _estimatedParcelController,
-        //                           decoration: InputDecoration(labelText: 'Estimated Parcel'),
-        //                         ),
-        //                       ],
-        //                     ),
-        //                     actions: [
-        //                       TextButton(
-        //                         onPressed: () {
-        //                           Navigator.pop(context); // Close the dialog
-        //                         },
-        //                         child: Text('Cancel'),
-        //                       ),
-        //                       TextButton(
-        //                         onPressed: () {
-        //                           // Do something with the entered text
-        //                           print('Text 1: ${_pickupAddressController.text}');
-        //                           print('Text 2: ${_noteController.text}');
-        //                           print('Text3: ${_estimatedParcelController.text}');
-        //
-        //                           String pickupAddress = _pickupAddressController.text;
-        //                           String note = _noteController.text;
-        //                           String estimatedParcel = _estimatedParcelController.text;
-        //
-        //                           _submitPickupRequest(context, pickupAddress, note, estimatedParcel);
-        //                           // _submitPickupRequest(context, _pickupAddressController.text, _noteController.text, _estimatedParcelController.text);
-        //
-        //
-        //                           // _submitPickupRequest();
-        //
-        //                           Navigator.pop(context); // Close the dialog
-        //                         },
-        //                         child: Text('Submit'),
-        //                       ),
-        //                     ],
-        //                   );
-        //                                       },
-        //                                     );
-        //                                   },
-        //                                   child: Container(
-        //                                     height: MediaQuery.of(context).size.width / 5.8,
-        //                                     width: MediaQuery.of(context).size.width / 3.3,
-        //                                     decoration: BoxDecoration(
-        //                                       color: Colormanager.darkPrimary,
-        //                                       borderRadius: BorderRadius.all(Radius.circular(5)),
-        //                                     ),
-        //                                     child: Center(
-        //                                       child: Text(
-        //                   'Pickup Request',
-        //                   style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-        //                                       ),
-        //                                     ),
-        //                                   ),
-        //                                 ),
-        //
-        //
-        //                                 SizedBox(width: 30,),
-        //                                 GestureDetector(
-        //                                   onTap: () {
-        //                                     showDialog(
-        //                                       context: context,
-        //                                       builder: (BuildContext context) {
-        //
-        //
-        //
-        //                   return AlertDialog(
-        //                     backgroundColor: Colors.white,
-        //                     title: Text('Payment Request'),
-        //                     content: Column(
-        //                       mainAxisSize: MainAxisSize.min,
-        //                       children: [
-        //                         // TextField(
-        //                         //   readOnly: true,
-        //                         //   controller: _textController4,
-        //                         //   decoration: InputDecoration(labelText: 'Current Payment Method'),
-        //                         //   onTap: () {
-        //                         //     print('tapped');
-        //                         //     String? _selectedPaymentMethod; // Variable to store the selected payment method
-        //                         //
-        //                         //     String _selectedOption = 'Option 1';
-        //                         //     // Initially set to the first option
-        //                         //     DropdownButtonFormField(
-        //                         //       value: _selectedPaymentMethod,
-        //                         //       items: paymentTypes.map((
-        //                         //           type) {
-        //                         //         return DropdownMenuItem(
-        //                         //           value: type,
-        //                         //           child: Text(type),
-        //                         //         );
-        //                         //       }).toList(),
-        //                         //       onChanged: (value) {
-        //                         //         _selectedPaymentMethod =
-        //                         //             value.toString();
-        //                         //         // selectedBank = 'Select Bank'; // Reset selected bank when payment type changes
-        //                         //         // selectedAccount = 'Select Account'; // Reset selected account when payment type changes
-        //                         //
-        //                         //       },
-        //                         //       decoration: InputDecoration(
-        //                         //         labelText: 'Payment Type',
-        //                         //         labelStyle: TextStyle(
-        //                         //             color: Colors.black),
-        //                         //       ),
-        //                         //     );
-        //                         //
-        //                         //
-        //                         //
-        //                         //
-        //                         //     },),
-        //
-        //
-        //                         DropdownButtonFormField(
-        //                           value: _selectedPaymentMethod,
-        //                           dropdownColor: Colors.white,
-        //                           items: paymentTypes.map((
-        //                               type) {
-        //                             return DropdownMenuItem(
-        //                               value: type,
-        //                               child: Text(type, style: TextStyle(color: Colors.black),),
-        //                             );
-        //                           }).toList(),
-        //                           onChanged: (value) {
-        //                             _selectedPaymentMethod =
-        //                                 value.toString();
-        //
-        //                           },
-        //
-        //                           decoration: InputDecoration(
-        //                             labelText: 'Payment Method',
-        //                             labelStyle: TextStyle(
-        //                                 color: Colors.black),
-        //                           ),
-        //                         ),
-        //
-        //
-        //                       ],
-        //                     ),
-        //                     actions: [
-        //                       TextButton(
-        //                         onPressed: () {
-        //                           Navigator.pop(context); // Close the dialog
-        //                         },
-        //                         child: Text('Cancel'),
-        //                       ),
-        //                       TextButton(
-        //                         onPressed: () {
-        //                           // Do something with the entered text
-        //
-        //                           print('Text4: ${_textController4.text}');
-        //
-        //                           Navigator.pop(context); // Close the dialog
-        //                         },
-        //                         child: GestureDetector(
-        //                             onTap:(){
-        //                               submitpaymethod(context);
-        //
-        //                               // Navigator.pop(context); // Close the dialog after submit
-        //
-        //
-        //
-        //                             },
-        //
-        //                             child: Text('Submit')),
-        //                       ),
-        //                     ],
-        //                   );
-        //                                       },
-        //                                     );
-        //                                   },
-        //                                 ),
-        //                       ],),
-        //                 ),
-        //     ),
-        //
-        //
-        //     Padding(
-        //       padding: const EdgeInsets.all(18.0),
-        //       child: Container(
-        //         color: Colors.black,
-        //         child: Padding(
-        //           padding: const EdgeInsets.all(16.0),
-        //           child: Row(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               Expanded(
-        //                 child: Padding(
-        //                   padding: const EdgeInsets.symmetric(
-        //                       horizontal: 8.0),
-        //                   child: Column(
-        //                     crossAxisAlignment:
-        //                     CrossAxisAlignment.stretch,
-        //                     children: [
-        //                       for (var i = 0;
-        //                       i < responseData!['data'].length &&
-        //                           i < 18;
-        //                       i += 2)
-        //                         Padding(
-        //                           padding: const EdgeInsets.symmetric(
-        //                               vertical: 8.0),
-        //                           child: Container(
-        //                             width: MediaQuery.of(context).size.width * 0.3,
-        //                             child: Card(
-        //
-        //                               color: Colormanager.darkPrimary,
-        //                               elevation: 3,
-        //                               child: Padding(
-        //                                 padding: const EdgeInsets.all(8.0),
-        //                                 child: Row(
-        //                                   crossAxisAlignment:
-        //                                   CrossAxisAlignment.start,
-        //                                   children: [
-        //                                     _buildKeyValueWidget(
-        //                                       responseData!['data']
-        //                                           .keys
-        //                                           .elementAt(i),
-        //                                       responseData!['data']
-        //                                           .values
-        //                                           .elementAt(i),
-        //                                     ),
-        //                                     if (i + 1 <
-        //                                         responseData!['data']
-        //                                             .length)
-        //                                       SizedBox(height: 8),
-        //                                     if (i + 1 <
-        //                                         responseData!['data']
-        //                                             .length)
-        //                                       _buildKeyValueWidget(
-        //                                         responseData!['data']
-        //                                             .keys
-        //                                             .elementAt(i + 1),
-        //                                         responseData!['data']
-        //                                             .values
-        //                                             .elementAt(i + 1),
-        //                                       ),
-        //                                   ],
-        //                                 ),
-        //                               ),
-        //                             ),
-        //                           ),
-        //                         ),
-        //                     ],
-        //                   ),
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //
-        //   ],
-        // ),
+      body: RefreshIndicator(
+        onRefresh: () => fetchData(),
 
-        // child: Column(
-        //     children: [
-        //
-        //       Padding(
-        //         padding: const EdgeInsets.all(18.0),
-        //         child: SingleChildScrollView(
-        //           child: Container(
-        //             color: Colors.black,
-        //             child: Column(
-        //               children: [
-        //                 Container(
-        //                   color: Colors.black,
-        //                   child: Padding(
-        //                     padding: const EdgeInsets.only(top:30.0),
-        //                     child: Row(
-        //                       crossAxisAlignment: CrossAxisAlignment.start,
-        //                       children: [
-        //
-        //                         Expanded(
-        //                           child: Padding(
-        //                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        //                             child: Column(
-        //                               crossAxisAlignment: CrossAxisAlignment.stretch,
-        //                               children: [
-        //
-        //
-        //                                 for (var i = 0; i < responseData!['data'].length && i < 18; i += 2)
-        //                                   Padding(
-        //                                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-        //                                     child: Container(
-        //                                       width: MediaQuery.of(context).size.width * 0.3,
-        //                                       child: Card(
-        //                                         color: Colormanager.darkPrimary,
-        //                                         elevation: 3,
-        //                                         child: Padding(
-        //                                           padding: const EdgeInsets.all(8.0),
-        //                                           child: Row(
-        //                                             crossAxisAlignment: CrossAxisAlignment.start,
-        //                                             children: [
-        //                                               _buildKeyValueWidget(
-        //                                                 responseData!['data'].keys.elementAt(i),
-        //                                                 responseData!['data'].values.elementAt(i),
-        //                                               ),
-        //                                               if (i + 1 < responseData!['data'].length) SizedBox(height: 8),
-        //                                               if (i + 1 < responseData!['data'].length)
-        //                                                 _buildKeyValueWidget(
-        //                                                   responseData!['data'].keys.elementAt(i + 1),
-        //                                                   responseData!['data'].values.elementAt(i + 1),
-        //                                                 ),
-        //                                             ],
-        //                                           ),
-        //                                         ),
-        //                                       ),
-        //                                     ),
-        //                                   ),
-        //                               ],
-        //                             ),
-        //                           ),
-        //                         ),
-        //                       ],
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
+        child: errorMessage != null
+            ? Center(
+          child: Text(errorMessage!),
+        )
+            : responseData == null
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            : SingleChildScrollView(
+          // child: Column(
+          //   children: [
+          //
+          //
+          //     Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Container(
+          //                   child: Row(
+          //                               mainAxisAlignment: MainAxisAlignment.center,
+          //                               children: [
+          //
+          //                                 GestureDetector(
+          //                                   onTap: () {
+          //                                     showDialog(
+          //                                       context: context,
+          //                                       builder: (BuildContext context) {
+          //
+          //                   _fetchPickupAddress().then((pickupAddress) {
+          //                     // Fill the pickup address TextField with the fetched address
+          //                     _pickupAddressController.text = pickupAddress ?? '';
+          //                   }).catchError((error) {
+          //                     print('Error fetching pickup address: $error');
+          //                   });
+          //
+          //
+          //                   return AlertDialog(
+          //                     key: _formKey,
+          //
+          //                     backgroundColor: Colors.white,
+          //                     title: Text('Enter Text'),
+          //                     content: Column(
+          //                       mainAxisSize: MainAxisSize.min,
+          //                       children: [
+          //                         Text('Pickup Address'),
+          //                         TextField(
+          //                           readOnly: true,
+          //                           controller: _pickupAddressController,
+          //                           decoration: InputDecoration(
+          //                               hintText: 'Pickup Address',
+          //                               hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          //                         ),
+          //                         SizedBox(height: 15),
+          //                         Text('Note'),
+          //
+          //                         TextField(
+          //                           controller: _noteController,
+          //                           decoration: InputDecoration(labelText: 'Note'),
+          //                         ),
+          //                         SizedBox(height: 15),
+          //                         Text('Estimated Parcel'),
+          //
+          //                         TextField(
+          //                           controller: _estimatedParcelController,
+          //                           decoration: InputDecoration(labelText: 'Estimated Parcel'),
+          //                         ),
+          //                       ],
+          //                     ),
+          //                     actions: [
+          //                       TextButton(
+          //                         onPressed: () {
+          //                           Navigator.pop(context); // Close the dialog
+          //                         },
+          //                         child: Text('Cancel'),
+          //                       ),
+          //                       TextButton(
+          //                         onPressed: () {
+          //                           // Do something with the entered text
+          //                           print('Text 1: ${_pickupAddressController.text}');
+          //                           print('Text 2: ${_noteController.text}');
+          //                           print('Text3: ${_estimatedParcelController.text}');
+          //
+          //                           String pickupAddress = _pickupAddressController.text;
+          //                           String note = _noteController.text;
+          //                           String estimatedParcel = _estimatedParcelController.text;
+          //
+          //                           _submitPickupRequest(context, pickupAddress, note, estimatedParcel);
+          //                           // _submitPickupRequest(context, _pickupAddressController.text, _noteController.text, _estimatedParcelController.text);
+          //
+          //
+          //                           // _submitPickupRequest();
+          //
+          //                           Navigator.pop(context); // Close the dialog
+          //                         },
+          //                         child: Text('Submit'),
+          //                       ),
+          //                     ],
+          //                   );
+          //                                       },
+          //                                     );
+          //                                   },
+          //                                   child: Container(
+          //                                     height: MediaQuery.of(context).size.width / 5.8,
+          //                                     width: MediaQuery.of(context).size.width / 3.3,
+          //                                     decoration: BoxDecoration(
+          //                                       color: Colormanager.darkPrimary,
+          //                                       borderRadius: BorderRadius.all(Radius.circular(5)),
+          //                                     ),
+          //                                     child: Center(
+          //                                       child: Text(
+          //                   'Pickup Request',
+          //                   style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+          //                                       ),
+          //                                     ),
+          //                                   ),
+          //                                 ),
+          //
+          //
+          //                                 SizedBox(width: 30,),
+          //                                 GestureDetector(
+          //                                   onTap: () {
+          //                                     showDialog(
+          //                                       context: context,
+          //                                       builder: (BuildContext context) {
+          //
+          //
+          //
+          //                   return AlertDialog(
+          //                     backgroundColor: Colors.white,
+          //                     title: Text('Payment Request'),
+          //                     content: Column(
+          //                       mainAxisSize: MainAxisSize.min,
+          //                       children: [
+          //                         // TextField(
+          //                         //   readOnly: true,
+          //                         //   controller: _textController4,
+          //                         //   decoration: InputDecoration(labelText: 'Current Payment Method'),
+          //                         //   onTap: () {
+          //                         //     print('tapped');
+          //                         //     String? _selectedPaymentMethod; // Variable to store the selected payment method
+          //                         //
+          //                         //     String _selectedOption = 'Option 1';
+          //                         //     // Initially set to the first option
+          //                         //     DropdownButtonFormField(
+          //                         //       value: _selectedPaymentMethod,
+          //                         //       items: paymentTypes.map((
+          //                         //           type) {
+          //                         //         return DropdownMenuItem(
+          //                         //           value: type,
+          //                         //           child: Text(type),
+          //                         //         );
+          //                         //       }).toList(),
+          //                         //       onChanged: (value) {
+          //                         //         _selectedPaymentMethod =
+          //                         //             value.toString();
+          //                         //         // selectedBank = 'Select Bank'; // Reset selected bank when payment type changes
+          //                         //         // selectedAccount = 'Select Account'; // Reset selected account when payment type changes
+          //                         //
+          //                         //       },
+          //                         //       decoration: InputDecoration(
+          //                         //         labelText: 'Payment Type',
+          //                         //         labelStyle: TextStyle(
+          //                         //             color: Colors.black),
+          //                         //       ),
+          //                         //     );
+          //                         //
+          //                         //
+          //                         //
+          //                         //
+          //                         //     },),
+          //
+          //
+          //                         DropdownButtonFormField(
+          //                           value: _selectedPaymentMethod,
+          //                           dropdownColor: Colors.white,
+          //                           items: paymentTypes.map((
+          //                               type) {
+          //                             return DropdownMenuItem(
+          //                               value: type,
+          //                               child: Text(type, style: TextStyle(color: Colors.black),),
+          //                             );
+          //                           }).toList(),
+          //                           onChanged: (value) {
+          //                             _selectedPaymentMethod =
+          //                                 value.toString();
+          //
+          //                           },
+          //
+          //                           decoration: InputDecoration(
+          //                             labelText: 'Payment Method',
+          //                             labelStyle: TextStyle(
+          //                                 color: Colors.black),
+          //                           ),
+          //                         ),
+          //
+          //
+          //                       ],
+          //                     ),
+          //                     actions: [
+          //                       TextButton(
+          //                         onPressed: () {
+          //                           Navigator.pop(context); // Close the dialog
+          //                         },
+          //                         child: Text('Cancel'),
+          //                       ),
+          //                       TextButton(
+          //                         onPressed: () {
+          //                           // Do something with the entered text
+          //
+          //                           print('Text4: ${_textController4.text}');
+          //
+          //                           Navigator.pop(context); // Close the dialog
+          //                         },
+          //                         child: GestureDetector(
+          //                             onTap:(){
+          //                               submitpaymethod(context);
+          //
+          //                               // Navigator.pop(context); // Close the dialog after submit
+          //
+          //
+          //
+          //                             },
+          //
+          //                             child: Text('Submit')),
+          //                       ),
+          //                     ],
+          //                   );
+          //                                       },
+          //                                     );
+          //                                   },
+          //                                 ),
+          //                       ],),
+          //                 ),
+          //     ),
+          //
+          //
+          //     Padding(
+          //       padding: const EdgeInsets.all(18.0),
+          //       child: Container(
+          //         color: Colors.black,
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(16.0),
+          //           child: Row(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Expanded(
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.symmetric(
+          //                       horizontal: 8.0),
+          //                   child: Column(
+          //                     crossAxisAlignment:
+          //                     CrossAxisAlignment.stretch,
+          //                     children: [
+          //                       for (var i = 0;
+          //                       i < responseData!['data'].length &&
+          //                           i < 18;
+          //                       i += 2)
+          //                         Padding(
+          //                           padding: const EdgeInsets.symmetric(
+          //                               vertical: 8.0),
+          //                           child: Container(
+          //                             width: MediaQuery.of(context).size.width * 0.3,
+          //                             child: Card(
+          //
+          //                               color: Colormanager.darkPrimary,
+          //                               elevation: 3,
+          //                               child: Padding(
+          //                                 padding: const EdgeInsets.all(8.0),
+          //                                 child: Row(
+          //                                   crossAxisAlignment:
+          //                                   CrossAxisAlignment.start,
+          //                                   children: [
+          //                                     _buildKeyValueWidget(
+          //                                       responseData!['data']
+          //                                           .keys
+          //                                           .elementAt(i),
+          //                                       responseData!['data']
+          //                                           .values
+          //                                           .elementAt(i),
+          //                                     ),
+          //                                     if (i + 1 <
+          //                                         responseData!['data']
+          //                                             .length)
+          //                                       SizedBox(height: 8),
+          //                                     if (i + 1 <
+          //                                         responseData!['data']
+          //                                             .length)
+          //                                       _buildKeyValueWidget(
+          //                                         responseData!['data']
+          //                                             .keys
+          //                                             .elementAt(i + 1),
+          //                                         responseData!['data']
+          //                                             .values
+          //                                             .elementAt(i + 1),
+          //                                       ),
+          //                                   ],
+          //                                 ),
+          //                               ),
+          //                             ),
+          //                           ),
+          //                         ),
+          //                     ],
+          //                   ),
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //
+          //   ],
+          // ),
 
-
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top:18.0),
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-
-                            _fetchPickupAddress().then((pickupAddress) {
-                              // Fill the pickup address TextField with the fetched address
-                              _pickupAddressController.text = pickupAddress ?? '';
-                            }).catchError((error) {
-                              print('Error fetching pickup address: $error');
-                            });
+          // child: Column(
+          //     children: [
+          //
+          //       Padding(
+          //         padding: const EdgeInsets.all(18.0),
+          //         child: SingleChildScrollView(
+          //           child: Container(
+          //             color: Colors.black,
+          //             child: Column(
+          //               children: [
+          //                 Container(
+          //                   color: Colors.black,
+          //                   child: Padding(
+          //                     padding: const EdgeInsets.only(top:30.0),
+          //                     child: Row(
+          //                       crossAxisAlignment: CrossAxisAlignment.start,
+          //                       children: [
+          //
+          //                         Expanded(
+          //                           child: Padding(
+          //                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          //                             child: Column(
+          //                               crossAxisAlignment: CrossAxisAlignment.stretch,
+          //                               children: [
+          //
+          //
+          //                                 for (var i = 0; i < responseData!['data'].length && i < 18; i += 2)
+          //                                   Padding(
+          //                                     padding: const EdgeInsets.symmetric(vertical: 8.0),
+          //                                     child: Container(
+          //                                       width: MediaQuery.of(context).size.width * 0.3,
+          //                                       child: Card(
+          //                                         color: Colormanager.darkPrimary,
+          //                                         elevation: 3,
+          //                                         child: Padding(
+          //                                           padding: const EdgeInsets.all(8.0),
+          //                                           child: Row(
+          //                                             crossAxisAlignment: CrossAxisAlignment.start,
+          //                                             children: [
+          //                                               _buildKeyValueWidget(
+          //                                                 responseData!['data'].keys.elementAt(i),
+          //                                                 responseData!['data'].values.elementAt(i),
+          //                                               ),
+          //                                               if (i + 1 < responseData!['data'].length) SizedBox(height: 8),
+          //                                               if (i + 1 < responseData!['data'].length)
+          //                                                 _buildKeyValueWidget(
+          //                                                   responseData!['data'].keys.elementAt(i + 1),
+          //                                                   responseData!['data'].values.elementAt(i + 1),
+          //                                                 ),
+          //                                             ],
+          //                                           ),
+          //                                         ),
+          //                                       ),
+          //                                     ),
+          //                                   ),
+          //                               ],
+          //                             ),
+          //                           ),
+          //                         ),
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
 
 
-                            return AlertDialog(
-                              key: _formKey,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top:18.0),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
 
-                              backgroundColor: Colors.white,
-                              title: Text('Enter Text'),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text('Pickup Address'),
-                                  TextField(
-                                    readOnly: true,
-                                    controller: _pickupAddressController,
-                                    decoration: InputDecoration(
-                                        hintText: 'Pickup Address',
-                                        hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              _fetchPickupAddress().then((pickupAddress) {
+                                // Fill the pickup address TextField with the fetched address
+                                _pickupAddressController.text = pickupAddress ?? '';
+                              }).catchError((error) {
+                                print('Error fetching pickup address: $error');
+                              });
+
+
+                              return AlertDialog(
+                                key: _formKey,
+
+                                backgroundColor: Colors.white,
+                                title: Text('Enter Text'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Pickup Address'),
+                                    TextField(
+                                      readOnly: true,
+                                      controller: _pickupAddressController,
+                                      decoration: InputDecoration(
+                                          hintText: 'Pickup Address',
+                                          hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                                    ),
+                                    SizedBox(height: 15),
+                                    Text('Note'),
+
+                                    TextField(
+                                      controller: _noteController,
+                                      decoration: InputDecoration(labelText: 'Note'),
+                                    ),
+                                    SizedBox(height: 15),
+                                    Text('Estimated Parcel'),
+
+                                    TextField(
+                                      controller: _estimatedParcelController,
+                                      decoration: InputDecoration(labelText: 'Estimated Parcel'),
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context); // Close the dialog
+                                    },
+                                    child: Text('Cancel'),
                                   ),
-                                  SizedBox(height: 15),
-                                  Text('Note'),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Do something with the entered text
+                                      print('Text 1: ${_pickupAddressController.text}');
+                                      print('Text 2: ${_noteController.text}');
+                                      print('Text3: ${_estimatedParcelController.text}');
 
-                                  TextField(
-                                    controller: _noteController,
-                                    decoration: InputDecoration(labelText: 'Note'),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text('Estimated Parcel'),
+                                      String pickupAddress = _pickupAddressController.text;
+                                      String note = _noteController.text;
+                                      String estimatedParcel = _estimatedParcelController.text;
 
-                                  TextField(
-                                    controller: _estimatedParcelController,
-                                    decoration: InputDecoration(labelText: 'Estimated Parcel'),
+                                      _submitPickupRequest(context, pickupAddress, note, estimatedParcel);
+                                      // _submitPickupRequest(context, _pickupAddressController.text, _noteController.text, _estimatedParcelController.text);
+
+
+                                      // _submitPickupRequest();
+
+                                      Navigator.pop(context); // Close the dialog
+                                    },
+                                    child: Text('Submit'),
                                   ),
                                 ],
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context); // Close the dialog
-                                  },
-                                  child: Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    // Do something with the entered text
-                                    print('Text 1: ${_pickupAddressController.text}');
-                                    print('Text 2: ${_noteController.text}');
-                                    print('Text3: ${_estimatedParcelController.text}');
-
-                                    String pickupAddress = _pickupAddressController.text;
-                                    String note = _noteController.text;
-                                    String estimatedParcel = _estimatedParcelController.text;
-
-                                    _submitPickupRequest(context, pickupAddress, note, estimatedParcel);
-                                    // _submitPickupRequest(context, _pickupAddressController.text, _noteController.text, _estimatedParcelController.text);
-
-
-                                    // _submitPickupRequest();
-
-                                    Navigator.pop(context); // Close the dialog
-                                  },
-                                  child: Text('Submit'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.width / 4.8,
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        decoration: BoxDecoration(
-                          color: Colormanager.darkPrimary,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Pickup Request',
-                            style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.width / 4.8,
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          decoration: BoxDecoration(
+                            color: Colormanager.darkPrimary,
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Pickup Request',
+                              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 30,),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
+                      SizedBox(width: 30,),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
 
-                            _fetchPickupAddress().then((pickupAddress) {
-                              // Fill the pickup address TextField with the fetched address
-                              _pickupAddressController.text = pickupAddress ?? '';
-                            }).catchError((error) {
-                              print('Error fetching pickup address: $error');
-                            });
-
-
-                            // return AlertDialog(
-                            //   key: _formKey,
-                            //
-                            //   backgroundColor: Colors.white,
-                            //   title: Text('Enter Text'),
-                            //   content: Column(
-                            //     mainAxisSize: MainAxisSize.min,
-                            //     children: [
-                            //       Text('Pickup Address'),
-                            //       TextField(
-                            //         readOnly: true,
-                            //         controller: _pickupAddressController,
-                            //         decoration: InputDecoration(
-                            //             hintText: 'Pickup Address',
-                            //             hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                            //       ),
-                            //       SizedBox(height: 15),
-                            //       Text('Note'),
-                            //
-                            //       TextField(
-                            //         controller: _noteController,
-                            //         decoration: InputDecoration(labelText: 'Note'),
-                            //       ),
-                            //       SizedBox(height: 15),
-                            //       Text('Estimated Parcel'),
-                            //
-                            //       TextField(
-                            //         controller: _estimatedParcelController,
-                            //         decoration: InputDecoration(labelText: 'Estimated Parcel'),
-                            //       ),
-                            //     ],
-                            //   ),
-                            //   actions: [
-                            //     TextButton(
-                            //       onPressed: () {
-                            //         Navigator.pop(context); // Close the dialog
-                            //       },
-                            //       child: Text('Cancel'),
-                            //     ),
-                            //     TextButton(
-                            //       onPressed: () {
-                            //         // Do something with the entered text
-                            //         print('Text 1: ${_pickupAddressController.text}');
-                            //         print('Text 2: ${_noteController.text}');
-                            //         print('Text3: ${_estimatedParcelController.text}');
-                            //
-                            //         String pickupAddress = _pickupAddressController.text;
-                            //         String note = _noteController.text;
-                            //         String estimatedParcel = _estimatedParcelController.text;
-                            //
-                            //         _submitPickupRequest(context, pickupAddress, note, estimatedParcel);
-                            //         // _submitPickupRequest(context, _pickupAddressController.text, _noteController.text, _estimatedParcelController.text);
-                            //
-                            //
-                            //         // _submitPickupRequest();
-                            //
-                            //         Navigator.pop(context); // Close the dialog
-                            //       },
-                            //       child: Text('Submit'),
-                            //     ),
-                            //   ],
-                            // );
+                              _fetchPickupAddress().then((pickupAddress) {
+                                // Fill the pickup address TextField with the fetched address
+                                _pickupAddressController.text = pickupAddress ?? '';
+                              }).catchError((error) {
+                                print('Error fetching pickup address: $error');
+                              });
 
 
-                            return AlertDialog(
-                              backgroundColor: Colors.white,
-                              title: Text('Payment Request'),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  // TextField(
-                                  //   readOnly: true,
-                                  //   controller: _textController4,
-                                  //   decoration: InputDecoration(labelText: 'Current Payment Method'),
-                                  //   onTap: () {
-                                  //     print('tapped');
-                                  //     String? _selectedPaymentMethod; // Variable to store the selected payment method
-                                  //
-                                  //     String _selectedOption = 'Option 1';
-                                  //     // Initially set to the first option
-                                  //     DropdownButtonFormField(
-                                  //       value: _selectedPaymentMethod,
-                                  //       items: paymentTypes.map((
-                                  //           type) {
-                                  //         return DropdownMenuItem(
-                                  //           value: type,
-                                  //           child: Text(type),
-                                  //         );
-                                  //       }).toList(),
-                                  //       onChanged: (value) {
-                                  //         _selectedPaymentMethod =
-                                  //             value.toString();
-                                  //         // selectedBank = 'Select Bank'; // Reset selected bank when payment type changes
-                                  //         // selectedAccount = 'Select Account'; // Reset selected account when payment type changes
-                                  //
-                                  //       },
-                                  //       decoration: InputDecoration(
-                                  //         labelText: 'Payment Type',
-                                  //         labelStyle: TextStyle(
-                                  //             color: Colors.black),
-                                  //       ),
-                                  //     );
-                                  //
-                                  //
-                                  //
-                                  //
-                                  //     },),
+                              // return AlertDialog(
+                              //   key: _formKey,
+                              //
+                              //   backgroundColor: Colors.white,
+                              //   title: Text('Enter Text'),
+                              //   content: Column(
+                              //     mainAxisSize: MainAxisSize.min,
+                              //     children: [
+                              //       Text('Pickup Address'),
+                              //       TextField(
+                              //         readOnly: true,
+                              //         controller: _pickupAddressController,
+                              //         decoration: InputDecoration(
+                              //             hintText: 'Pickup Address',
+                              //             hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              //       ),
+                              //       SizedBox(height: 15),
+                              //       Text('Note'),
+                              //
+                              //       TextField(
+                              //         controller: _noteController,
+                              //         decoration: InputDecoration(labelText: 'Note'),
+                              //       ),
+                              //       SizedBox(height: 15),
+                              //       Text('Estimated Parcel'),
+                              //
+                              //       TextField(
+                              //         controller: _estimatedParcelController,
+                              //         decoration: InputDecoration(labelText: 'Estimated Parcel'),
+                              //       ),
+                              //     ],
+                              //   ),
+                              //   actions: [
+                              //     TextButton(
+                              //       onPressed: () {
+                              //         Navigator.pop(context); // Close the dialog
+                              //       },
+                              //       child: Text('Cancel'),
+                              //     ),
+                              //     TextButton(
+                              //       onPressed: () {
+                              //         // Do something with the entered text
+                              //         print('Text 1: ${_pickupAddressController.text}');
+                              //         print('Text 2: ${_noteController.text}');
+                              //         print('Text3: ${_estimatedParcelController.text}');
+                              //
+                              //         String pickupAddress = _pickupAddressController.text;
+                              //         String note = _noteController.text;
+                              //         String estimatedParcel = _estimatedParcelController.text;
+                              //
+                              //         _submitPickupRequest(context, pickupAddress, note, estimatedParcel);
+                              //         // _submitPickupRequest(context, _pickupAddressController.text, _noteController.text, _estimatedParcelController.text);
+                              //
+                              //
+                              //         // _submitPickupRequest();
+                              //
+                              //         Navigator.pop(context); // Close the dialog
+                              //       },
+                              //       child: Text('Submit'),
+                              //     ),
+                              //   ],
+                              // );
 
 
-                                  DropdownButtonFormField(
-                                    value: _selectedPaymentMethod,
-                                    dropdownColor: Colors.white,
-                                    items: paymentTypes.map((
-                                        type) {
-                                      return DropdownMenuItem(
-                                        value: type,
-                                        child: Text(type, style: TextStyle(color: Colors.black),),
-                                      );
-                                    }).toList(),
-                                    onChanged: (value) {
-                                      _selectedPaymentMethod =
-                                          value.toString();
-
-                                    },
-
-                                    decoration: InputDecoration(
-                                      labelText: 'Payment Method',
-                                      labelStyle: TextStyle(
-                                          color: Colors.black),
-                                    ),
-                                  ),
-
-
-                                ],
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context); // Close the dialog
-                                  },
-                                  child: Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    // Do something with the entered text
-
-                                    print('Text4: ${_textController4.text}');
-
-                                    Navigator.pop(context); // Close the dialog
-                                  },
-                                  child: GestureDetector(
-                                      onTap:(){
-                                        submitpaymethod(context);
-
-                                        // Navigator.pop(context); // Close the dialog after submit
+                              return AlertDialog(
+                                backgroundColor: Colors.white,
+                                title: Text('Payment Request'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    // TextField(
+                                    //   readOnly: true,
+                                    //   controller: _textController4,
+                                    //   decoration: InputDecoration(labelText: 'Current Payment Method'),
+                                    //   onTap: () {
+                                    //     print('tapped');
+                                    //     String? _selectedPaymentMethod; // Variable to store the selected payment method
+                                    //
+                                    //     String _selectedOption = 'Option 1';
+                                    //     // Initially set to the first option
+                                    //     DropdownButtonFormField(
+                                    //       value: _selectedPaymentMethod,
+                                    //       items: paymentTypes.map((
+                                    //           type) {
+                                    //         return DropdownMenuItem(
+                                    //           value: type,
+                                    //           child: Text(type),
+                                    //         );
+                                    //       }).toList(),
+                                    //       onChanged: (value) {
+                                    //         _selectedPaymentMethod =
+                                    //             value.toString();
+                                    //         // selectedBank = 'Select Bank'; // Reset selected bank when payment type changes
+                                    //         // selectedAccount = 'Select Account'; // Reset selected account when payment type changes
+                                    //
+                                    //       },
+                                    //       decoration: InputDecoration(
+                                    //         labelText: 'Payment Type',
+                                    //         labelStyle: TextStyle(
+                                    //             color: Colors.black),
+                                    //       ),
+                                    //     );
+                                    //
+                                    //
+                                    //
+                                    //
+                                    //     },),
 
 
+                                    DropdownButtonFormField(
+                                      value: _selectedPaymentMethod,
+                                      dropdownColor: Colors.white,
+                                      items: paymentTypes.map((
+                                          type) {
+                                        return DropdownMenuItem(
+                                          value: type,
+                                          child: Text(type, style: TextStyle(color: Colors.black),),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        _selectedPaymentMethod =
+                                            value.toString();
 
                                       },
 
-                                      child: Text('Submit')),
+                                      decoration: InputDecoration(
+                                        labelText: 'Payment Method',
+                                        labelStyle: TextStyle(
+                                            color: Colors.black),
+                                      ),
+                                    ),
+
+
+                                  ],
                                 ),
-                              ],
-                            );
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context); // Close the dialog
+                                    },
+                                    child: Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Do something with the entered text
+
+                                      print('Text4: ${_textController4.text}');
+
+                                      Navigator.pop(context); // Close the dialog
+                                    },
+                                    child: GestureDetector(
+                                        onTap:(){
+                                          submitpaymethod(context);
+
+                                          // Navigator.pop(context); // Close the dialog after submit
 
 
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.width / 4.8,
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        decoration: BoxDecoration(
-                          color: Colormanager.darkPrimary,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Payment Request',
-                            style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+
+                                        },
+
+                                        child: Text('Submit')),
+                                  ),
+                                ],
+                              );
+
+
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.width / 4.8,
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          decoration: BoxDecoration(
+                            color: Colormanager.darkPrimary,
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Payment Request',
+                              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 2.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    for (var i = 0; i < responseData!['data'].length; i +=4)
-                                      if (responseData!['data'].keys.elementAt(i) != 'total_delivery_unsuccess_ratio' && responseData!['data'].keys.elementAt(i) != 'paymentProcessing')
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 2.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      for (var i = 0; i < responseData!['data'].length; i +=4)
+                                        if (responseData!['data'].keys.elementAt(i) != 'total_delivery_unsuccess_ratio' && responseData!['data'].keys.elementAt(i) != 'paymentProcessing')
 
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Card(
-                                                  // color: Colormanager.darkPrimary,
-                                                  color: getRandomColor(),//cardColors[i % cardColors.length], // Use colors from the list
-
-                                                  elevation: 3,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Text('Today', style: TextStyle(color: Colors.white, fontSize: 10),),
-
-                                                            Text('Total', style: TextStyle(color: Colors.white, fontSize: 10),),
-
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-
-                                                            _buildKeyValueWidget(
-                                                              responseData!['data'].keys.elementAt(i),
-                                                              responseData!['data'].values.elementAt(i),
-                                                            ),
-                                                            if (i + 1 < responseData!['data'].length)
-                                                              SizedBox(height: 8),
-                                                            if (i + 1 < responseData!['data'].length)
-                                                              _buildKeyValueWidget(
-                                                                // responseData!['data'].keys.elementAt(i + 1),
-                                                                '',
-                                                                responseData!['data'].values.elementAt(i + 1),
-                                                              ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(width: 8), // Adjust spacing between cards
-                                              if (i + 2 < responseData!['data'].length)
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
                                                 Expanded(
                                                   child: Card(
                                                     // color: Colormanager.darkPrimary,
-                                                    color: getRandomColor(),//cardColors[(i + 2) % cardColors.length], // Use colors from the list
+                                                    color: getRandomColor(),//cardColors[i % cardColors.length], // Use colors from the list
 
                                                     elevation: 3,
                                                     child: Padding(
@@ -1495,149 +1454,194 @@ class _Dashboard_newState extends State<Dashboard_new> {
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                             children: [
+
                                                               _buildKeyValueWidget(
-                                                                responseData!['data'].keys.elementAt(i + 2),
-                                                                responseData!['data'].values.elementAt(i + 2),
+                                                                responseData!['data'].keys.elementAt(i),
+                                                                responseData!['data'].values.elementAt(i),
                                                               ),
-                                                              if (i + 3 < responseData!['data'].length)
+                                                              if (i + 1 < responseData!['data'].length)
                                                                 SizedBox(height: 8),
-                                                              if (i + 3 < responseData!['data'].length)
+                                                              if (i + 1 < responseData!['data'].length)
                                                                 _buildKeyValueWidget(
-                                                                  // responseData!['data'].keys.elementAt(i + 3),
+                                                                  // responseData!['data'].keys.elementAt(i + 1),
                                                                   '',
-                                                                  responseData!['data'].values.elementAt(i + 3),
+                                                                  responseData!['data'].values.elementAt(i + 1),
                                                                 ),
-
-
-
-
-
                                                             ],
                                                           ),
                                                         ],
                                                       ),
                                                     ),
                                                   ),
-
                                                 ),
-                                            ],
+                                                SizedBox(width: 8), // Adjust spacing between cards
+                                                if (i + 2 < responseData!['data'].length)
+                                                  Expanded(
+                                                    child: Card(
+                                                      // color: Colormanager.darkPrimary,
+                                                      color: getRandomColor(),//cardColors[(i + 2) % cardColors.length], // Use colors from the list
+
+                                                      elevation: 3,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                Text('Today', style: TextStyle(color: Colors.white, fontSize: 10),),
+
+                                                                Text('Total', style: TextStyle(color: Colors.white, fontSize: 10),),
+
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                _buildKeyValueWidget(
+                                                                  responseData!['data'].keys.elementAt(i + 2),
+                                                                  responseData!['data'].values.elementAt(i + 2),
+                                                                ),
+                                                                if (i + 3 < responseData!['data'].length)
+                                                                  SizedBox(height: 8),
+                                                                if (i + 3 < responseData!['data'].length)
+                                                                  _buildKeyValueWidget(
+                                                                    // responseData!['data'].keys.elementAt(i + 3),
+                                                                    '',
+                                                                    responseData!['data'].values.elementAt(i + 3),
+                                                                  ),
+
+
+
+
+
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                  ),
+                                              ],
+                                            ),
                                           ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                              children: [
+                                                Container(
+                                                  height: MediaQuery.of(context).size.height/7.6,
+                                                  width: MediaQuery.of(context).size.width/2.2,
+
+
+                                                  child: Card(
+                                                    color: getRandomColor(),//Colormanager.darkPrimary,
+                                                    elevation: 3,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: _buildpayWidget(
+                                                        'payment processing', // Key for which you want to display the value
+
+                                                        responseData!['data']['paymentProcessing'].toString(), // Value corresponding to the key
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: MediaQuery.of(context).size.height/7.6,
+                                                  width: MediaQuery.of(context).size.width/2.2,
+
+
+                                                  child: Card(
+                                                    color: getRandomColor(),//Colormanager.darkPrimary,
+                                                    elevation: 3,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: _buildpayWidget(
+                                                        'Payment Complete', // Key for which you want to display the value
+
+                                                        responseData!['data']['paymentComplete'].toString(), // Value corresponding to the key
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+                                            SizedBox(height:10),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                              children: [
+                                                Container(
+                                                  height: MediaQuery.of(context).size.height/7.6,
+                                                  width: MediaQuery.of(context).size.width/2.2,
+
+                                                  child: Card(
+                                                    color: getRandomColor(),//Colormanager.darkPrimary,
+                                                    elevation: 3,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: _buildpayWidget(
+                                                        'Delivery Unsuccessful', // Key for which you want to display the value
+
+                                                        responseData!['data']['total_delivery_unsuccess_ratio'].toString(), // Value corresponding to the key
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: MediaQuery.of(context).size.height/7.6,
+                                                  width: MediaQuery.of(context).size.width/2.2,
+
+
+                                                  child: Card(
+                                                    color: getRandomColor(),//Colormanager.darkPrimary,
+                                                    elevation: 3,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: _buildpayWidget(
+                                                        'Delivery Successful', // Key for which you want to display the value
+
+                                                        responseData!['data']['total_delivery_success_ratio'].toString(), // Value corresponding to the key
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
+                                          ],
                                         ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context).size.height/7.6,
-                                                width: MediaQuery.of(context).size.width/2.2,
-
-
-                                                child: Card(
-                                                  color: getRandomColor(),//Colormanager.darkPrimary,
-                                                  elevation: 3,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: _buildpayWidget(
-                                                      'payment processing', // Key for which you want to display the value
-
-                                                      responseData!['data']['paymentProcessing'].toString(), // Value corresponding to the key
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: MediaQuery.of(context).size.height/7.6,
-                                                width: MediaQuery.of(context).size.width/2.2,
-
-
-                                                child: Card(
-                                                  color: getRandomColor(),//Colormanager.darkPrimary,
-                                                  elevation: 3,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: _buildpayWidget(
-                                                      'Payment Complete', // Key for which you want to display the value
-
-                                                      responseData!['data']['paymentComplete'].toString(), // Value corresponding to the key
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-
-                                            ],
-                                          ),
-                                          SizedBox(height:10),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context).size.height/7.6,
-                                                width: MediaQuery.of(context).size.width/2.2,
-
-                                                child: Card(
-                                                  color: getRandomColor(),//Colormanager.darkPrimary,
-                                                  elevation: 3,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: _buildpayWidget(
-                                                      'Delivery Unsuccessful', // Key for which you want to display the value
-
-                                                      responseData!['data']['total_delivery_unsuccess_ratio'].toString(), // Value corresponding to the key
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: MediaQuery.of(context).size.height/7.6,
-                                                width: MediaQuery.of(context).size.width/2.2,
-
-
-                                                child: Card(
-                                                  color: getRandomColor(),//Colormanager.darkPrimary,
-                                                  elevation: 3,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: _buildpayWidget(
-                                                      'Delivery Successful', // Key for which you want to display the value
-
-                                                      responseData!['data']['total_delivery_success_ratio'].toString(), // Value corresponding to the key
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-
-                                            ],
-                                          ),
-
-                                        ],
                                       ),
-                                    ),
 
 
 
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
 
 
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+
+
         ),
-
-
       ),
 
     );

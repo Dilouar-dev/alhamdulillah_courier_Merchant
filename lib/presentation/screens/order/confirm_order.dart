@@ -375,6 +375,7 @@
 
 //
 //
+import 'package:alhamdulillah_courier_service_merchant/presentation/screens/order/component/order_track.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:alhamdulillah_courier_service_merchant/data/model/confirm_orders_response.dart';
@@ -440,11 +441,18 @@ class ConfirmOrderView extends GetView<OrderController> {
                         // )
                             : ListView.builder(
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => OrderCard(
-                            order: response[index],
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: (){
+                              print('clicked');
+                              // OrderTrack(order: Order(), pickupTime: PickupTime(), rider: Rider(), order_as_list: [],trackingId:trackingId,);
+                            },
+                            child: OrderCard(
+                              order: response[index],
 
-                            rider: rider, pickuptime: pickupTime,
+                              rider: rider, pickuptime: pickupTime,
+                            ),
                           ),
+
                           itemCount: response.length,
                         ),
                         onEmpty: EmptyFailureNoInternetView(

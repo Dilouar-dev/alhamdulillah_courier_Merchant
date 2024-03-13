@@ -52,6 +52,10 @@ class OrderCreateController extends GetxController {
   var selectType = 'Regular'.obs;
   var types = ['Regular', 'Express'];
 
+
+  TextEditingController _selectedDistController = TextEditingController();
+
+
   var selectedDate = DateTime.now().obs;
   Future<void> selectDate() async {
     final DateTime? picked = await showDatePicker(
@@ -173,24 +177,270 @@ class OrderCreateController extends GetxController {
     return outputDate;
   }
 
+//   void getVlidation() {
+//     final validation = formKey.currentState!.validate();
+//     if (!validation) {
+//       return;
+//     }
+//
+//     print('selectedDistrict: $selectedDistrict');
+//     print('selectedCatefory: $selectedCatefory');
+//     print('selectedWeight: $selectedWeight');
+//     print('selectedPickupTime: $selectedPickupTime');
+//     print('_selectedAreaIdController.text: ${_selectedAreaIdController.text}');
+//
+//     if (selectedDistrict == null) {
+//       customSnakebar(
+//           title: AppStrings.errorTitle,
+//           description: 'District Not Selected',
+//           color: Colormanager.red,
+//           icon: Icons.error);}
+//     // else if (selectedArea == null) {
+//     //   customSnakebar(
+//     //       title: AppStrings.errorTitle,
+//     //       description: 'Area Not Selected',
+//     //       color: Colormanager.red,
+//     //       icon: Icons.error);
+//     // }
+//       else if (selectedCatefory == null) {
+//       customSnakebar(
+//           title: AppStrings.errorTitle,
+//           description: 'Category Not Selected',
+//           color: Colormanager.red,
+//           icon: Icons.error);
+//     } else if (selectedWeight == null) {
+//       customSnakebar(
+//           title: AppStrings.errorTitle,
+//           description: 'Weight Not Selected',
+//           color: Colormanager.red,
+//           icon: Icons.error);
+//     }
+//     else if (selectedPickupTime == null) {
+//       customSnakebar(
+//           title: AppStrings.errorTitle,
+//           description: 'Pickup Time Not Selected',
+//           color: Colormanager.red,
+//           icon: Icons.error);
+//     }
+//     else {
+//       String name = nameController.text;
+//       String phone = phoneController.text;
+//       String address = addressController.text;
+//       String collection = collectionController.text;
+//       String note = deliveryNoteController.text ?? '-';
+//       String type = selectType.toString() == 'Express' ? 'Urgent' : 'Regular';
+//       int isPartial = isPertial.value == true ? 1 : 0;
+//       int? selectedArea = int.tryParse(_selectedAreaIdController.text);
+//
+//       Order order = Order(
+//           shop: 'jj',//selectShop.toString(),
+//           customerName: name,
+//           customerPhone: phone,
+//           customerAddress: address,
+//           type: type,
+//           district: selectDistrict.toString(),
+//           // districtId: parsedDistrictId,
+//           area:_selectedAreaController.toString(),
+//           areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
+//           category: selectCategory.toString(),
+//           weight: selectWeight.toString(),
+//           pickupTime: selectPickupTime.toString(),
+//           pickupDate: selectedDate.toString(),
+//           colection: int.parse(collection.toString()),
+//           isPartial: isPartial,
+//           remarks: note
+//       );
+//
+//       print(order != null ? order.toJson() : 'Order object is null');
+//
+//
+//
+//       print("Created");
+//       print("Order Details:");
+//       print("Shop: ${order.shop}");
+//       print("Customer Name: ${order.customerName}");
+//       print("Customer Phone: ${order.customerPhone}");
+//       print("Customer Address: ${order.customerAddress}");
+//       print("Type: ${order.type}");
+//       print("District: ${order.district}");
+//       print("District Id: ${order.districtId}");
+//
+//       print("Area: ${order.areaId}");
+//       print("Category: ${order.category}");
+//       print("Weight: ${order.weight}");
+//       print("Pickup Time: ${order.pickupTime}");
+//       print("Pickup Date: ${order.pickupDate}");
+//       print("Collection: ${order.colection}");
+//       print("Is Partial: ${order.isPartial}");
+//       print("Remarks: ${order.remarks}");
+//       getCreateOrder(order);
+//
+//       void getVlidation() {
+//         final validation = formKey.currentState!.validate();
+//         if (!validation) {
+//           return;
+//         }
+//
+//         print('selectedDistrict: $selectedDistrict');
+//         print('selectedCatefory: $selectedCatefory');
+//         print('selectedWeight: $selectedWeight');
+//         print('selectedPickupTime: $selectedPickupTime');
+//         print('_selectedAreaIdController.text: ${_selectedAreaIdController.text}');
+//
+//         if (selectedDistrict == null) {
+//           customSnakebar(
+//               title: AppStrings.errorTitle,
+//               description: 'District Not Selected',
+//               color: Colormanager.red,
+//               icon: Icons.error);}
+//         // else if (selectedArea == null) {
+//         //   customSnakebar(
+//         //       title: AppStrings.errorTitle,
+//         //       description: 'Area Not Selected',
+//         //       color: Colormanager.red,
+//         //       icon: Icons.error);
+//         // }
+//         else if (selectedCatefory == null) {
+//           customSnakebar(
+//               title: AppStrings.errorTitle,
+//               description: 'Category Not Selected',
+//               color: Colormanager.red,
+//               icon: Icons.error);
+//         } else if (selectedWeight == null) {
+//           customSnakebar(
+//               title: AppStrings.errorTitle,
+//               description: 'Weight Not Selected',
+//               color: Colormanager.red,
+//               icon: Icons.error);
+//         }
+//         else if (selectedPickupTime == null) {
+//           customSnakebar(
+//               title: AppStrings.errorTitle,
+//               description: 'Pickup Time Not Selected',
+//               color: Colormanager.red,
+//               icon: Icons.error);
+//         }
+//         else {
+//           String name = nameController.text;
+//           String phone = phoneController.text;
+//           String address = addressController.text;
+//           String collection = collectionController.text;
+//           String note = deliveryNoteController.text ?? '-';
+//           String type = selectType.toString() == 'Express' ? 'Urgent' : 'Regular';
+//           int isPartial = isPertial.value == true ? 1 : 0;
+//           int? selectedArea = int.tryParse(_selectedAreaIdController.text);
+//
+//           Order order = Order(
+//               shop: 'jj',//selectShop.toString(),
+//               customerName: name,
+//               customerPhone: phone,
+//               customerAddress: address,
+//               type: type,
+//               district: selectDistrict.toString(),
+//               // districtId: parsedDistrictId,
+//               area:_selectedAreaController.toString(),
+//               areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
+//               category: selectCategory.toString(),
+//               weight: selectWeight.toString(),
+//               pickupTime: selectPickupTime.toString(),
+//               pickupDate: selectedDate.toString(),
+//               colection: int.parse(collection.toString()),
+//               isPartial: isPartial,
+//               remarks: note
+//           );
+//
+//           print(order != null ? order.toJson() : 'Order object is null');
+//
+//
+//
+//           print("Created");
+//           print("Order Details:");
+//           print("Shop: ${order.shop}");
+//           print("Customer Name: ${order.customerName}");
+//           print("Customer Phone: ${order.customerPhone}");
+//           print("Customer Address: ${order.customerAddress}");
+//           print("Type: ${order.type}");
+//           print("District: ${order.district}");
+//           print("District Id: ${order.districtId}");
+//
+//           print("Area: ${order.areaId}");
+//           print("Category: ${order.category}");
+//           print("Weight: ${order.weight}");
+//           print("Pickup Time: ${order.pickupTime}");
+//           print("Pickup Date: ${order.pickupDate}");
+//           print("Collection: ${order.colection}");
+//           print("Is Partial: ${order.isPartial}");
+//           print("Remarks: ${order.remarks}");
+//           getCreateOrder(order);
+//
+//           nameController.clear();
+//           phoneController.clear();
+//           addressController.clear();
+//           collectionController.clear();
+//           deliveryNoteController.clear();
+//
+//         }
+//       }
+//
+//
+//     }
+//   }
+//
+// //Create Order
+//   getCreateOrder(Order order) async {
+//     showLoaderDialog(Get.context!, AppStrings.wait);
+//     print(order.toJson());
+//     try {
+//       await orderApi.getCreateOrder(order).then((value) {
+//         print(value);
+//         Get.back();
+//         customSnakebar(
+//             title: AppStrings.successTitle,
+//             description: 'Successfully Created Order',
+//             color: Colormanager.darkblue,
+//             icon: Icons.check);
+//
+//         Get.offNamed(Routes.order);
+//         // Get.offNamed(Routes.order);
+//       }).onError((error, stackTrace) {
+//         Get.back();
+//         customSnakebar(
+//             title: AppStrings.errorTitle,
+//             description: error.toString(),
+//             color: Colormanager.red,
+//             icon: Icons.error);
+//         print("Error occurred: $error");
+//       });
+//     } catch (error) {
+//       Get.back();
+//       customSnakebar(
+//           title: AppStrings.errorTitle,
+//           description: error.toString(),
+//           color: Colormanager.red,
+//           icon: Icons.error);
+//     }
+//
+//     nameController.clear();
+//     phoneController.clear();
+//     addressController.clear();
+//     collectionController.clear();
+//     deliveryNoteController.clear();
+//   }
+
+
+
+
   void getVlidation() {
     final validation = formKey.currentState!.validate();
     if (!validation) {
       return;
     }
-
-    print('selectedDistrict: $selectedDistrict');
-    print('selectedCatefory: $selectedCatefory');
-    print('selectedWeight: $selectedWeight');
-    print('selectedPickupTime: $selectedPickupTime');
-    print('_selectedAreaIdController.text: ${_selectedAreaIdController.text}');
-
-    if (selectedDistrict == null) {
-      customSnakebar(
-          title: AppStrings.errorTitle,
-          description: 'District Not Selected',
-          color: Colormanager.red,
-          icon: Icons.error);}
+    // if (selectedDistrict == null) {
+    //   customSnakebar(
+    //       title: AppStrings.errorTitle,
+    //       description: 'District Not Selected',
+    //       color: Colormanager.red,
+    //       icon: Icons.error);}
     // else if (selectedArea == null) {
     //   customSnakebar(
     //       title: AppStrings.errorTitle,
@@ -198,7 +448,7 @@ class OrderCreateController extends GetxController {
     //       color: Colormanager.red,
     //       icon: Icons.error);
     // }
-      else if (selectedCatefory == null) {
+    else if (selectedCatefory == null) {
       customSnakebar(
           title: AppStrings.errorTitle,
           description: 'Category Not Selected',
@@ -211,22 +461,25 @@ class OrderCreateController extends GetxController {
           color: Colormanager.red,
           icon: Icons.error);
     }
-    else if (selectedPickupTime == null) {
-      customSnakebar(
-          title: AppStrings.errorTitle,
-          description: 'Pickup Time Not Selected',
-          color: Colormanager.red,
-          icon: Icons.error);
-    }
+    // else if (selectedPickupTime == null) {
+    //   customSnakebar(
+    //       title: AppStrings.errorTitle,
+    //       description: 'Pickup Time Not Selected',
+    //       color: Colormanager.red,
+    //       icon: Icons.error);
+    // }
     else {
       String name = nameController.text;
       String phone = phoneController.text;
       String address = addressController.text;
+      String orderid = addressController.text;
+      String sellingprice = addressController.text;
       String collection = collectionController.text;
       String note = deliveryNoteController.text ?? '-';
       String type = selectType.toString() == 'Express' ? 'Urgent' : 'Regular';
-      int isPartial = isPertial.value == true ? 1 : 0;
-      int? selectedArea = int.tryParse(_selectedAreaIdController.text);
+      // int isPartial = isPertial.value == true ? 1 : 0;
+      int isPartial = 1;//isPertial.value == true ? 1 : 0;
+
 
       Order order = Order(
           shop: 'jj',//selectShop.toString(),
@@ -234,7 +487,7 @@ class OrderCreateController extends GetxController {
           customerPhone: phone,
           customerAddress: address,
           type: type,
-          district: selectDistrict.toString(),
+          district: _selectedDistController.text,//selectDistrict.toString(),
           // districtId: parsedDistrictId,
           area:_selectedAreaController.toString(),
           areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
@@ -246,8 +499,6 @@ class OrderCreateController extends GetxController {
           isPartial: isPartial,
           remarks: note
       );
-
-      print(order != null ? order.toJson() : 'Order object is null');
 
 
 
@@ -261,7 +512,7 @@ class OrderCreateController extends GetxController {
       print("District: ${order.district}");
       print("District Id: ${order.districtId}");
 
-      print("Area: ${order.areaId}");
+      print("Area: ${order.area}");
       print("Category: ${order.category}");
       print("Weight: ${order.weight}");
       print("Pickup Time: ${order.pickupTime}");
@@ -271,112 +522,12 @@ class OrderCreateController extends GetxController {
       print("Remarks: ${order.remarks}");
       getCreateOrder(order);
 
-      void getVlidation() {
-        final validation = formKey.currentState!.validate();
-        if (!validation) {
-          return;
-        }
 
-        print('selectedDistrict: $selectedDistrict');
-        print('selectedCatefory: $selectedCatefory');
-        print('selectedWeight: $selectedWeight');
-        print('selectedPickupTime: $selectedPickupTime');
-        print('_selectedAreaIdController.text: ${_selectedAreaIdController.text}');
-
-        if (selectedDistrict == null) {
-          customSnakebar(
-              title: AppStrings.errorTitle,
-              description: 'District Not Selected',
-              color: Colormanager.red,
-              icon: Icons.error);}
-        // else if (selectedArea == null) {
-        //   customSnakebar(
-        //       title: AppStrings.errorTitle,
-        //       description: 'Area Not Selected',
-        //       color: Colormanager.red,
-        //       icon: Icons.error);
-        // }
-        else if (selectedCatefory == null) {
-          customSnakebar(
-              title: AppStrings.errorTitle,
-              description: 'Category Not Selected',
-              color: Colormanager.red,
-              icon: Icons.error);
-        } else if (selectedWeight == null) {
-          customSnakebar(
-              title: AppStrings.errorTitle,
-              description: 'Weight Not Selected',
-              color: Colormanager.red,
-              icon: Icons.error);
-        }
-        else if (selectedPickupTime == null) {
-          customSnakebar(
-              title: AppStrings.errorTitle,
-              description: 'Pickup Time Not Selected',
-              color: Colormanager.red,
-              icon: Icons.error);
-        }
-        else {
-          String name = nameController.text;
-          String phone = phoneController.text;
-          String address = addressController.text;
-          String collection = collectionController.text;
-          String note = deliveryNoteController.text ?? '-';
-          String type = selectType.toString() == 'Express' ? 'Urgent' : 'Regular';
-          int isPartial = isPertial.value == true ? 1 : 0;
-          int? selectedArea = int.tryParse(_selectedAreaIdController.text);
-
-          Order order = Order(
-              shop: 'jj',//selectShop.toString(),
-              customerName: name,
-              customerPhone: phone,
-              customerAddress: address,
-              type: type,
-              district: selectDistrict.toString(),
-              // districtId: parsedDistrictId,
-              area:_selectedAreaController.toString(),
-              areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
-              category: selectCategory.toString(),
-              weight: selectWeight.toString(),
-              pickupTime: selectPickupTime.toString(),
-              pickupDate: selectedDate.toString(),
-              colection: int.parse(collection.toString()),
-              isPartial: isPartial,
-              remarks: note
-          );
-
-          print(order != null ? order.toJson() : 'Order object is null');
-
-
-
-          print("Created");
-          print("Order Details:");
-          print("Shop: ${order.shop}");
-          print("Customer Name: ${order.customerName}");
-          print("Customer Phone: ${order.customerPhone}");
-          print("Customer Address: ${order.customerAddress}");
-          print("Type: ${order.type}");
-          print("District: ${order.district}");
-          print("District Id: ${order.districtId}");
-
-          print("Area: ${order.areaId}");
-          print("Category: ${order.category}");
-          print("Weight: ${order.weight}");
-          print("Pickup Time: ${order.pickupTime}");
-          print("Pickup Date: ${order.pickupDate}");
-          print("Collection: ${order.colection}");
-          print("Is Partial: ${order.isPartial}");
-          print("Remarks: ${order.remarks}");
-          getCreateOrder(order);
-
-          nameController.clear();
-          phoneController.clear();
-          addressController.clear();
-          collectionController.clear();
-          deliveryNoteController.clear();
-
-        }
-      }
+      nameController.clear();
+      phoneController.clear();
+      addressController.clear();
+      // orderidController.clear();
+      collectionController.clear();
 
 
     }
@@ -388,6 +539,7 @@ class OrderCreateController extends GetxController {
     print(order.toJson());
     try {
       await orderApi.getCreateOrder(order).then((value) {
+
         print(value);
         Get.back();
         customSnakebar(
@@ -405,7 +557,6 @@ class OrderCreateController extends GetxController {
             description: error.toString(),
             color: Colormanager.red,
             icon: Icons.error);
-        print("Error occurred: $error");
       });
     } catch (error) {
       Get.back();

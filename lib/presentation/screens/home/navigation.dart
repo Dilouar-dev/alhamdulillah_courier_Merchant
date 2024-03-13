@@ -727,7 +727,7 @@ class NavigationBarDrawer extends StatelessWidget {
               contentPadding: const EdgeInsets.only(left: AppPadding.p14),
               iconColor: Colors.white,
               title: Text(
-                'Confirm Orders',
+                'Order History',
                 style: getBoldStyle(
                     color: Colors.white, fontSize: FontSize.s20),
               ),

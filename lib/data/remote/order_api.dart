@@ -277,34 +277,77 @@ class OrderApi extends GetConnect {
           .then((value) => value.body)
           .onError((error, stackTrace) => Future.error(error.toString()));
 
-  Future<dynamic> getCreateOrder(Order order) => http
-      .post(Uri.parse('${BaseUrl.baseUrl}/orderstor'),
-      headers: <String, String>{
-        'Accept': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${StorageHelper.getString(key: 'token')}'
-      },
-      body: {
-        'customer_name': order.customerName,
-        'customer_phone': order.customerPhone,
-        'customer_address': order.customerAddress,
-        'shop': order.shop,
-        'district':order.district,
-        'area': order.area,
-        'category': order.category,
-        'weight': order.weight,
-        'collection': order.colection.toString(),
-        'remarks': order.remarks,
-        'pickup_date': order.pickupDate,
-        'pickup_time': order.pickupTime,
-        'imp': order.type.toString(),
-        'isPartial': order.isPartial.toString(),
-      })
-      // .then((value) => value.body)
-      .then((response) {
-    // Print response in console
-    print(response.body);
-    return response.body;
-  })
-      .onError((error, stackTrace) => Future.error(error.toString()));
+  // Future<dynamic> getCreateOrder(Order order) => http
+  //     .post(Uri.parse('${BaseUrl.baseUrl}/orderstor'),
+  //     headers: <String, String>{
+  //       'Accept': 'application/json; charset=UTF-8',
+  //       'Authorization': 'Bearer ${StorageHelper.getString(key: 'token')}'
+  //     },
+  //     body: {
+  //       'customer_name': order.customerName,
+  //       'customer_phone': order.customerPhone,
+  //       'customer_address': order.customerAddress,
+  //       'shop': order.shop,
+  //       'district':order.district,
+  //       'area': order.area,
+  //       'category': order.category,
+  //       'weight': order.weight,
+  //       'collection': order.colection.toString(),
+  //       'remarks': order.remarks,
+  //       'pickup_date': order.pickupDate,
+  //       'pickup_time': order.pickupTime,
+  //       'imp': order.type.toString(),
+  //       'isPartial': order.isPartial.toString(),
+  //     })
+  //     // .then((value) => value.body)
+  //     .then((response) {
+  //   // Print response in console
+  //   print(response.body);
+  //   return response.body;
+  // })
+  //     .onError((error, stackTrace) => Future.error(error.toString()));
+
+
+
+  Future<dynamic> getCreateOrder(Order order) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${BaseUrl.baseUrl}/orderstor'),
+        headers: <String, String>{
+          'Accept': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${StorageHelper.getString(key: 'token')}'
+        },
+        body: {
+          'customer_name': order.customerName,
+          'customer_phone': order.customerPhone,
+          'customer_address': order.customerAddress,
+          'shop': order.shop,
+          'district':order.district,
+          'area': order.area,
+          'category': order.category,
+          'weight': order.weight,
+          'collection': order.colection.toString(),
+          'remarks': order.remarks,
+          'pickup_date': order.pickupDate,
+          'pickup_time': order.pickupTime,
+          'imp': order.type.toString(),
+          'isPartial': order.isPartial.toString(),
+        },
+      );
+
+      if (response.statusCode != 200) {
+        print('API request failed with status code: ${response.statusCode}');
+        return null;
+      }
+
+      // Print response in console
+      print(response.body);
+      return response.body;
+    } catch (error) {
+      print('Error: $error');
+      return null;
+    }
+  }
+
 }
 

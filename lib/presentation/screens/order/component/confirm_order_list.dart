@@ -495,6 +495,7 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:alhamdulillah_courier_service_merchant/data/model/pickup_time_response.dart';
@@ -649,109 +650,137 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
             //   ),
             // );
 
-            return Card(
-              elevation: AppSize.s10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          orderlist['tracking_id'].toString(),
-                          style: getBoldStyle(
-                            color: Colormanager.black,
-                            fontSize: FontSize.s15,
-                          ),
-                        ),
-                        Text(
-                          'IV ${orderlist['collection']} TK',
-                          style: getBoldStyle(
-                            color: Colormanager.black,
-                            fontSize: FontSize.s15,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            AppStrings.customer,
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
+            return GestureDetector(
+              onTap: (){
+                print('clicked');
+                Get.to(OrderTrack(order: Order(), pickupTime: PickupTime(), rider: Rider(), order_as_list: [],trackingId:orderlist['tracking_id'].toString(),));
+              },
+              child: Card(
+                elevation: AppSize.s10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            orderlist['tracking_id'].toString(),
+                            style: getBoldStyle(
+                              color: Colormanager.black,
                               fontSize: FontSize.s15,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppStrings.mobile,
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
+                          Text(
+                            'IV ${orderlist['collection']} TK',
+                            style: getBoldStyle(
+                              color: Colormanager.black,
                               fontSize: FontSize.s15,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            orderlist['customer_name'].toString(),
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
-                              fontSize: FontSize.s15,
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.s12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppStrings.customer,
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s15,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            orderlist['customer_phone'].toString(),
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
-                              fontSize: FontSize.s15,
+                          Expanded(
+                            child: Text(
+                              AppStrings.mobile,
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s15,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: AppPadding.p14),
-                          child: Icon(
-                            Icons.circle,
-                            color: Colormanager.primary,
-                            size: AppSize.s10,
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.s4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              orderlist['customer_name'].toString(),
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s15,
+                              ),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            // '${orderlist['area']}, ${orderlist['customer_address']}',
-                            '${orderlist['customer_address']}',
+                          Expanded(
+                            child: Text(
+                              orderlist['customer_phone'].toString(),
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.s12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: AppPadding.p14),
+                            child: Icon(
+                              Icons.circle,
+                              color: Colormanager.primary,
+                              size: AppSize.s10,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              // '${orderlist['area']}, ${orderlist['customer_address']}',
+                              '${orderlist['customer_address']}',
 
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
-                              fontSize: FontSize.s14,
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s14,
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.s8),
+                      if (orderlist['isPartial'] == 1)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: AppPadding.p14),
+                              child: Icon(
+                                Icons.circle,
+                                color: Colormanager.darkblue,
+                                size: AppSize.s10,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Partially Order',
+                                style: getSemiBoldStyle(
+                                  color: Colormanager.darkGrey,
+                                  fontSize: FontSize.s14,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s8),
-                    if (orderlist['isPartial'] == 1)
+                      const SizedBox(height: AppSize.s8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -765,7 +794,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                           ),
                           Expanded(
                             child: Text(
-                              'Partially Order',
+                              '${orderlist['status']}',
                               style: getSemiBoldStyle(
                                 color: Colormanager.darkGrey,
                                 fontSize: FontSize.s14,
@@ -774,128 +803,106 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                           ),
                         ],
                       ),
-                    const SizedBox(height: AppSize.s8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: AppPadding.p14),
-                          child: Icon(
-                            Icons.circle,
-                            color: Colormanager.darkblue,
-                            size: AppSize.s10,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            '${orderlist['status']}',
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
-                              fontSize: FontSize.s14,
+                      const SizedBox(height: AppSize.s18),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: AppPadding.p14),
+                            child: Icon(
+                              Icons.circle,
+                              color: Colormanager.darkblue,
+                              size: AppSize.s10,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s18),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: AppPadding.p14),
-                          child: Icon(
-                            Icons.circle,
-                            color: Colormanager.darkblue,
-                            size: AppSize.s10,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            '${orderlist['collect']} TK Collect',
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
-                              fontSize: FontSize.s14,
+                          Expanded(
+                            child: Text(
+                              '${orderlist['collect']} TK Collect',
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s14,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s18),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          // child: Text(
-                          //   orderlist['created_at'].toString(),
-                          //   style: getSemiBoldStyle(
-                          //     color: Colormanager.darkGrey,
-                          //     fontSize: FontSize.s14,
-                          //   ),
-                          // ),
-                          child:Text(
-                            DateFormat.yMd().add_jm().format(
-                              DateTime.parse(orderlist['created_at']),
-                            ),
-                            style: getSemiBoldStyle(
-                              color: Colormanager.darkGrey,
-                              fontSize: FontSize.s14,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colormanager.primaryOpacity70,
-                            borderRadius: BorderRadius.circular(AppSize.s4),
-                          ),
-                          padding: const EdgeInsets.all(AppPadding.p4),
-                          child: Text(
-                            orderlist['type'].toString().toUpperCase() == 'URGENT'
-                                ? 'EXPRESS'
-                                : orderlist['type'].toString().toUpperCase(),
-                            style: getSemiBoldStyle(
-                              color: Colormanager.white,
-                              fontSize: FontSize.s14,
+                        ],
+                      ),
+                      const SizedBox(height: AppSize.s18),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            // child: Text(
+                            //   orderlist['created_at'].toString(),
+                            //   style: getSemiBoldStyle(
+                            //     color: Colormanager.darkGrey,
+                            //     fontSize: FontSize.s14,
+                            //   ),
+                            // ),
+                            child:Text(
+                              DateFormat.yMd().add_jm().format(
+                                DateTime.parse(orderlist['created_at']),
+                              ),
+                              style: getSemiBoldStyle(
+                                color: Colormanager.darkGrey,
+                                fontSize: FontSize.s14,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // Divider(
-                    //   height: 20,
-                    //   thickness: 3,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     Text(
-                    //       'Order History',
-                    //       style: TextStyle(fontWeight: FontWeight.bold),
-                    //     ),
-                    //     Spacer(),
-                    //     ElevatedButton(
-                    //       style: ElevatedButton.styleFrom(
-                    //         foregroundColor: Colors.white,
-                    //         backgroundColor: Colormanager.d3,
-                    //       ),
-                    //       child: const Icon(Icons.arrow_forward),
-                    //       onPressed: () {
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //     builder: (context) => OrderTrack(
-                    //         //       order: order,
-                    //         //        order_as_list: confirmedOrderList,
-                    //         //       trackingId: orderlist['tracking_id'].toString(),
-                    //         //       pickupTime: pickupTime, //order['pickup_time'].toString(),
-                    //         //       rider:rider //order['name'].toString(),
-                    //         //     ),
-                    //         //   ),
-                    //         // );
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
-                  ],
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colormanager.primaryOpacity70,
+                              borderRadius: BorderRadius.circular(AppSize.s4),
+                            ),
+                            padding: const EdgeInsets.all(AppPadding.p4),
+                            child: Text(
+                              orderlist['type'].toString().toUpperCase() == 'URGENT'
+                                  ? 'EXPRESS'
+                                  : orderlist['type'].toString().toUpperCase(),
+                              style: getSemiBoldStyle(
+                                color: Colormanager.white,
+                                fontSize: FontSize.s14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Divider(
+                      //   height: 20,
+                      //   thickness: 3,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.end,
+                      //   children: [
+                      //     Text(
+                      //       'Order History',
+                      //       style: TextStyle(fontWeight: FontWeight.bold),
+                      //     ),
+                      //     Spacer(),
+                      //     ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         foregroundColor: Colors.white,
+                      //         backgroundColor: Colormanager.d3,
+                      //       ),
+                      //       child: const Icon(Icons.arrow_forward),
+                      //       onPressed: () {
+                      //         // Navigator.push(
+                      //         //   context,
+                      //         //   MaterialPageRoute(
+                      //         //     builder: (context) => OrderTrack(
+                      //         //       order: order,
+                      //         //        order_as_list: confirmedOrderList,
+                      //         //       trackingId: orderlist['tracking_id'].toString(),
+                      //         //       pickupTime: pickupTime, //order['pickup_time'].toString(),
+                      //         //       rider:rider //order['name'].toString(),
+                      //         //     ),
+                      //         //   ),
+                      //         // );
+                      //       },
+                      //     ),
+                      //   ],
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             );

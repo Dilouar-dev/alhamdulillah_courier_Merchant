@@ -618,6 +618,7 @@
 
 
 
+import 'package:alhamdulillah_courier_service_merchant/data/local/storage_healper.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -683,8 +684,10 @@ class _OrderTrackState extends State<OrderTrack> {
       final response = await http.get(
         uri,
         headers: {
-          'Authorization': 'YourAuthorizationTokenHere',
-          'Accept': 'application/json',
+          // 'Authorization': 'YourAuthorizationTokenHere',
+          'Authorization': 'Bearer ${StorageHelper.getString(key: 'token')}', // Retrieve token from StorageHelper
+
+      'Accept': 'application/json',
         },
       );
       print("API Response order track: ${response.body}");
@@ -727,7 +730,9 @@ class _OrderTrackState extends State<OrderTrack> {
                           padding: const EdgeInsets.only(top: 15.7),
                           child: Center(
                             child: Text(
+                              // 'Tracking ID: ${widget.order.trackingId}',
                               'Tracking ID: ${widget.order.trackingId}',
+
                               // 'Tracking ID: OE7702401145860',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
