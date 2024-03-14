@@ -57,6 +57,14 @@ class OrderCreateController extends GetxController {
 
 
   var selectedDate = DateTime.now().obs;
+  String? districtId;
+  // int? districtId;
+
+  void updateDistrict(String? dist) {
+    districtId = dist;
+    print(districtId);
+    // You can add any additional logic here, such as notifying listeners or performing other actions based on the updated district ID.
+  }
   Future<void> selectDate() async {
     final DateTime? picked = await showDatePicker(
         context: Get.context!,
@@ -487,8 +495,8 @@ class OrderCreateController extends GetxController {
           customerPhone: phone,
           customerAddress: address,
           type: type,
-          district: _selectedDistController.text,//selectDistrict.toString(),
-          // districtId: parsedDistrictId,
+          district: districtId,//_selectedDistController.toString(),//selectDistrict.toString(),
+          // districtId: districtId,//parsedDistrictId,
           area:_selectedAreaController.toString(),
           areaId: int.tryParse(_selectedAreaIdController.text) ?? 0,//213,//selectArea,//_selectedAreaIdController.toString(),
           category: selectCategory.toString(),
@@ -512,7 +520,7 @@ class OrderCreateController extends GetxController {
       print("District: ${order.district}");
       print("District Id: ${order.districtId}");
 
-      print("Area: ${order.area}");
+      print("Area: ${order.areaId}");
       print("Category: ${order.category}");
       print("Weight: ${order.weight}");
       print("Pickup Time: ${order.pickupTime}");

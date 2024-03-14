@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "140f0242-9d38-4871-b310-61acbf32b4e0",
+		"name": "Courier Lab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12886818",
+		"_collection_link": "https://gold-resonance-415633.postman.co/workspace/Courier-Lab~e738c90d-b98d-4181-b0a8-93d4d4b9550f/collection/12886818-140f0242-9d38-4871-b310-61acbf32b4e0?action=share&source=collection_link&creator=12886818"
+	},
+	"item": [
+		{
+			"name": "Add Parcel",
+			"item": [
+				{
+					"name": "add parcel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "merchant_id",
+									"value": "1202",
+									"type": "text"
+								},
+								{
+									"key": "customer_name",
+									"value": "Test customer234",
+									"type": "text"
+								},
+								{
+									"key": "customer_email",
+									"value": "test234@gmail",
+									"type": "text"
+								},
+								{
+									"key": "customer_phone",
+									"value": "01798737512",
+									"type": "text"
+								},
+								{
+									"key": "customer_address",
+									"value": "Dhaka,Bangladesh",
+									"type": "text"
+								},
+								{
+									"key": "district_id",
+									"value": "47",
+									"type": "text"
+								},
+								{
+									"key": "area_id",
+									"value": "63",
+									"type": "text"
+								},
+								{
+									"key": "pickup_date",
+									"value": "2024-02-27",
+									"type": "text"
+								},
+								{
+									"key": "pickup_time",
+									"value": "10.20 PM",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "done",
+									"type": "text"
+								},
+								{
+									"key": "category_name",
+									"value": "Gadget",
+									"type": "text"
+								},
+								{
+									"key": "selling_price",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "order_id",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "collection",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "delivery_type",
+									"value": "Regular",
+									"type": "text"
+								},
+								{
+									"key": "weight",
+									"value": "up to 1kg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://system.alhamdulillahcourierservice.com/api/add-parcel",
+							"protocol": "https",
+							"host": [
+								"system",
+								"alhamdulillahcourierservice",
+								"com"
+							],
+							"path": [
+								"api",
+								"add-parcel"
+							]
+						},
+						"description": "This endpoint allows you to add a new parcel by making an HTTP POST request to the specified URL. The request should include form-data in the body with parameters such as merchant_id, customer_name, customer_email, customer_phone, customer_address, district_id, area_id, pickup_date, pickup_time, remarks, category_name, selling_price, order_id, collection, delivery_type, and weight.\n\n### Request Body Parameters\n\n- `merchant_id` (number): merchant Id is required.\n    \n- `customer_name` (text): customer name id required.\n    \n- `customer_email` (email): customer email is required.\n    \n- `customer_phone` (number): customer phone number is required.\n    \n- `customer_address` (text): customer address is required.\n    \n- `district_id` (number): District id is required.\n    \n- `area_id` (number): Area Id is required.\n    \n- `pickup_date` (date): The date for parcel pickup(optional).\n    \n- `pickup_time` (time): The time for parcel pickup(optional).\n    \n- `remarks` (text): Any additional remarks(optional).\n    \n- `category_name` (text): The category of the parcel(optional).\n    \n- `selling_price` (text): The selling price of the parcel(required).\n    \n- `order_id` (number): The ID of the order(optional).\n    \n- `collection` (number): Collection details(required).\n    \n- `delivery_type` (text): The type of delivery(optional).\n    \n- `weight` (text): The weight of the parcel(required).\n    \n\n### Response\n\nUpon successful execution, the response will have a status of 200 and a JSON content type. The response body will contain a boolean status, an empty message, and data including tracking_id, collection, delivery, insurance, cod, return_charge, merchant_pay, updated_at, created_at, and id."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Weight",
+			"item": [
+				{
+					"name": "Weight",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://system.alhamdulillahcourierservice.com/api/weights",
+							"protocol": "https",
+							"host": [
+								"system",
+								"alhamdulillahcourierservice",
+								"com"
+							],
+							"path": [
+								"api",
+								"weights"
+							]
+						},
+						"description": "This HTTP GET request retrieves the list of weights from the courier API. The response will be in JSON format with a 200 status code. The response will include a boolean status, a message, and an array of weight data objects, each containing various properties such as id, title, and other attributes related to weight calculations."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "District List",
+			"item": [
+				{
+					"name": "District",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://system.alhamdulillahcourierservice.com/api/distList",
+							"protocol": "https",
+							"host": [
+								"system",
+								"alhamdulillahcourierservice",
+								"com"
+							],
+							"path": [
+								"api",
+								"distList"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a list of courier distribution centers. The response will have a status code of 200, indicating a successful request, and the data will be in JSON format. The response will include a boolean status, a message, and an array of distribution center objects, each containing an ID, name, Bengali name, zone ID, inside value, creation timestamp, and update timestamp."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "District wise coverage area list",
+			"item": [
+				{
+					"name": "Coverage area list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/Courierlab_V7.30.6/api/dist-area?id=47",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"Courierlab_V7.30.6",
+								"api",
+								"dist-area"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "47"
+								}
+							]
+						},
+						"description": "This API endpoint makes an HTTP GET request to retrieve the distribution area details based on the provided ID. The response will be in JSON format with a 200 status code. The response will include a boolean status, a message, and an array of data objects containing information about the distribution areas such as ID, inside, zone name, district, area, district ID, zone ID, post code, delivery options, COD (Cash on Delivery) availability, insurance, status, creation and update timestamps."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Category",
+			"item": [
+				{
+					"name": "Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://system.alhamdulillahcourierservice.com/api/category",
+							"protocol": "https",
+							"host": [
+								"system",
+								"alhamdulillahcourierservice",
+								"com"
+							],
+							"path": [
+								"api",
+								"category"
+							]
+						},
+						"description": "This API endpoint sends an HTTP GET request to retrieve a list of courier categories from the specified URL.\n\nThe response received from the last execution had a status code of 200 and a content type of application/json. The response body included a \"Status\" field indicating the success status, a \"message\" field for any additional information, and a \"data\" array containing courier category objects with \"id\", \"name\", \"status\", \"created_at\", and \"updated_at\" attributes.\n\nYou can use this endpoint to fetch courier categories for further processing or display in your application."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

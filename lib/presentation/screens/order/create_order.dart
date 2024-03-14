@@ -1435,9 +1435,14 @@ class CreateOrderView extends GetView<OrderCreateController> {
 
   TextEditingController _selectedAreaController = TextEditingController();
    TextEditingController _selectedAreaIdController = TextEditingController();
+   TextEditingController _selectedDistController = TextEditingController();
+
    // List<dynamic> _areas = [].obs;
    // var _areas = [].obs;
    // var areas = [].obs;
+    var distId;
+   var dist;
+
 
 
    @override
@@ -1446,6 +1451,7 @@ class CreateOrderView extends GetView<OrderCreateController> {
    }
 
    RxList<dynamic> _areas = <dynamic>[].obs;
+
 
    List<dynamic> get areas => _areas.toList();
 
@@ -1457,7 +1463,9 @@ class CreateOrderView extends GetView<OrderCreateController> {
 
    Future<void> _loadAreas() async {
      try {
-       final response = await GetConnect().get('https://system.alhamdulillahcourierservice.com/api/coverage-area');
+       // final response = await GetConnect().get('https://system.alhamdulillahcourierservice.com/api/coverage-area');
+       final response = await GetConnect().get('https://system.alhamdulillahcourierservice.com/api/dist-area?id=$distId');
+
 
        if (response.statusCode == 200) {
          List<dynamic> areas = response.body['data'];
@@ -1553,6 +1561,75 @@ class CreateOrderView extends GetView<OrderCreateController> {
          );
        },
      );
+   }
+
+   void _showDistSelector(BuildContext context) {
+     showModalBottomSheet(
+       context: context,
+       builder: (BuildContext context) {
+         return FutureBuilder(
+           future: _loadDistricts(),
+           builder: (context, snapshot) {
+             if (snapshot.connectionState == ConnectionState.waiting) {
+               return Center(
+                 child: CircularProgressIndicator(),
+               );
+             } else if (snapshot.hasError) {
+               return Center(
+                 child: Text('Error loading districts: ${snapshot.error}'),
+               );
+             } else {
+               List<dynamic>? districts = snapshot.data;
+               return SingleChildScrollView(
+                 child: Column(
+                   children: districts!.map<Widget>((district) {
+                     return ListTile(
+                       title: Text(district['name']),
+                       onTap: () {
+                         _selectedDistController.text = district['name'];
+                         dist =_selectedDistController.text;
+
+                         distId =district['id'];
+                         // Handle selection here
+                         // print("Selected District ID: ${district['id']}");
+                         print("Selected District ID: $distId");
+                         // OrderCreateController.updateDistrictId(distId);
+                         Get.find<OrderCreateController>().updateDistrict(dist);
+                         print(dist);
+
+
+
+
+
+                         Navigator.of(context).pop();
+                       },
+                     );
+                   }).toList(),
+                 ),
+               );
+             }
+           },
+         );
+       },
+     );
+   }
+
+
+
+
+
+   Future<List<dynamic>> _loadDistricts() async {
+     final response = await http.get(Uri.parse('https://system.alhamdulillahcourierservice.com/api/distList'));
+     if (response.statusCode == 200) {
+       final Map<String, dynamic> data = json.decode(response.body);
+       if (data['Status'] == true) {
+         return data['data'];
+       } else {
+         throw Exception('Failed to load districts: ${data['message']}');
+       }
+     } else {
+       throw Exception('Failed to load districts: ${response.statusCode}');
+     }
    }
 
 
@@ -1831,214 +1908,260 @@ class CreateOrderView extends GetView<OrderCreateController> {
                         height: AppSize.s10,
                       ),
                       buildTypes(),
+                      // const SizedBox(
+                      //   height: AppSize.s10,
+                      // ),
+                      // Column(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text.rich(
+                      //       TextSpan(
+                      //         children: [
+                      //           TextSpan(
+                      //             text: 'District',
+                      //             style: getSemiBoldStyle(
+                      //                 color: Colormanager.lightGrey,
+                      //                 fontSize: AppSize.s14),
+                      //           ),
+                      //           TextSpan(
+                      //             text: AppStrings.star,
+                      //             style: getSemiBoldStyle(
+                      //                 color: Colormanager.red,
+                      //                 fontSize: AppSize.s14),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     DropdownSearch<CoverageArea>(
+                      //
+                      //       popupProps: PopupProps.menu(
+                      //         showSearchBox: true,
+                      //         // disabledItemFn: (String s) => s.startsWith('I'),
+                      //         searchFieldProps: TextFieldProps(
+                      //
+                      //           style: getBoldStyle(
+                      //               color: Colormanager.black,
+                      //               fontSize: FontSize.s15),
+                      //
+                      //         ),
+                      //         itemBuilder: (context, item, isSelected) =>
+                      //         isSelected
+                      //             ? Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Text(
+                      //             item.district!,
+                      //             style: getBoldStyle(
+                      //                 color: Colormanager.primary),
+                      //           ),
+                      //         )
+                      //             : Container(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           margin: const EdgeInsets.only(
+                      //               bottom: 4),
+                      //           color: Colormanager.lightGrey
+                      //               .withOpacity(0.2),
+                      //           child: Text(
+                      //             item.district!,
+                      //             style: getBoldStyle(
+                      //                 color: Colormanager.black,
+                      //                 fontSize: FontSize.s15),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       items: controller.coverageAreas,
+                      //
+                      //       dropdownDecoratorProps: DropDownDecoratorProps(
+                      //         baseStyle:
+                      //         getSemiBoldStyle(color: Colormanager.black),
+                      //         dropdownSearchDecoration: const InputDecoration(
+                      //           // labelText: "Menu mode",
+                      //           // hintText: "country in menu mode",
+                      //
+                      //         ),
+                      //       ),
+                      //
+                      //       onChanged: (value) {
+                      //         controller.selectedDistrict = value;
+                      //         controller.selectDistrict.value =
+                      //             value!.district.toString();
+                      //         // controller.selectDistrict.value = int.parse(value!.district.toString());
+                      //         // distId = int.parse(controller.selectDistrict.value.toString());
+                      //
+                      //         print('dis: ${controller.selectDistrict.value}');
+                      //
+                      //
+                      //
+                      //         // Pass selected district as an integer
+                      //         int parsedDistrictId = int.tryParse(value!.district.toString()) ?? 0;
+                      //         // controller.selectDistrictId.value = parsedDistrictId;
+                      //         print('dis: ${controller.selectDistrict.value}');
+                      //
+                      //
+                      //
+                      //       },
+                      //       itemAsString: (item) => item.district.toString(),
+                      //       // districtId: int.tryParse(selectDistrict.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0,
+                      //
+                      //
+                      //       // selectedItem: controller.selectArea.value,
+                      //     ),
+                      //
+                      //     // SearchField<District>(
+                      //     //   suggestions: controller.districts
+                      //     //       .map(
+                      //     //         (e) => SearchFieldListItem<District>(
+                      //     //           e.name.toString(),
+                      //     //           item: e,
+                      //     //           // Use child to show Custom Widgets in the suggestions
+                      //     //           // defaults to Text widget
+                      //     //           child: Padding(
+                      //     //             padding: const EdgeInsets.all(8.0),
+                      //     //             child: Row(
+                      //     //               children: [
+                      //     //                 const SizedBox(
+                      //     //                   width: 10,
+                      //     //                 ),
+                      //     //                 Text(e.name.toString()),
+                      //     //               ],
+                      //     //             ),
+                      //     //           ),
+                      //     //         ),
+                      //     //       )
+                      //     //       .toList(),
+                      //     //   suggestionState: Suggestion.expand,
+                      //     //   textInputAction: TextInputAction.next,
+                      //     //   hint: 'SearchField Example 2',
+                      //     //   hasOverlay: false,
+                      //     //   searchStyle: TextStyle(
+                      //     //     fontSize: 18,
+                      //     //     color: Colors.black.withOpacity(0.8),
+                      //     //   ),
+                      //     //   validator: (x) {
+                      //     //     if (x!.isEmpty) {
+                      //     //       return 'Please Enter a valid State';
+                      //     //     }
+                      //     //     return null;
+                      //     //   },
+                      //     //   searchInputDecoration: InputDecoration(
+                      //     //     focusedBorder: OutlineInputBorder(
+                      //     //       borderSide: BorderSide(
+                      //     //         color: Colors.black.withOpacity(0.8),
+                      //     //       ),
+                      //     //     ),
+                      //     //     border: const OutlineInputBorder(
+                      //     //       borderSide: BorderSide(color: Colors.red),
+                      //     //     ),
+                      //     //   ),
+                      //     //   maxSuggestionsInViewPort: 6,
+                      //     //   itemHeight: 50,
+                      //     //   onSuggestionTap: (newValue) {
+                      //     //     controller.selectedDistrict = newValue.item;
+                      //     //     controller.selectDistrict.value =
+                      //     //         newValue.item!.name.toString();
+                      //     //     controller.getCoverageAreas(newValue.item!.id!);
+                      //     //   },
+                      //     // ),
+                      //
+                      //     //Selecttor in Shop
+                      //     // Container(
+                      //     //   padding: const EdgeInsets.all(AppPadding.p4),
+                      //     //   decoration: BoxDecoration(
+                      //     //     shape: BoxShape.rectangle,
+                      //     //     border: Border.all(
+                      //     //         width: AppSize.s1_5,
+                      //     //         color: Colormanager.grey),
+                      //     //     borderRadius: const BorderRadius.all(
+                      //     //       Radius.circular(AppSize.s8),
+                      //     //     ),
+                      //     //   ),
+                      //     //   child: Obx(() => DropdownButton<District>(
+                      //     //         //isDense: true,
+                      //     //         hint: Text(
+                      //     //           controller.selectDistrict.value,
+                      //     //           style: getSemiBoldStyle(
+                      //     //             color: Colormanager.black,
+                      //     //           ),
+                      //     //         ),
+                      //     //         value: controller.selectedDistrict,
+                      //
+                      //     //         icon: Padding(
+                      //     //           padding:
+                      //     //               const EdgeInsets.only(left: 15.0),
+                      //     //           child: Icon(
+                      //     //             Icons.arrow_drop_down,
+                      //     //             color: Colors.grey[600],
+                      //     //           ),
+                      //     //         ),
+                      //     //         iconSize: 30,
+                      //     //         elevation: 16,
+                      //     //         isExpanded: true,
+                      //     //         style: const TextStyle(
+                      //     //           color: Colors.black,
+                      //     //         ),
+                      //     //         underline: Container(
+                      //     //           height: 0,
+                      //     //         ),
+                      //     //         onChanged: (District? newValue) {
+                      //     //           controller.selectedDistrict = newValue;
+                      //     //           controller.selectDistrict.value =
+                      //     //               newValue!.name.toString();
+                      //     //           controller.getCoverageAreas(newValue.id!);
+                      //     //         },
+                      //     //         items: controller.districts
+                      //     //             .map<DropdownMenuItem<District>>(
+                      //     //                 (District? value) {
+                      //     //           return DropdownMenuItem<District>(
+                      //     //             value: value,
+                      //     //             child: Text(
+                      //     //               '${value!.name}',
+                      //     //               style: getSemiBoldStyle(
+                      //     //                   color: Colormanager.black),
+                      //     //             ),
+                      //     //           );
+                      //     //         }).toList(),
+                      //     //       )),
+                      //     // ),
+                      //   ],
+                      // ),
+
                       const SizedBox(
                         height: AppSize.s10,
                       ),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'District',
-                                  style: getSemiBoldStyle(
-                                      color: Colormanager.lightGrey,
-                                      fontSize: AppSize.s14),
-                                ),
-                                TextSpan(
-                                  text: AppStrings.star,
-                                  style: getSemiBoldStyle(
-                                      color: Colormanager.red,
-                                      fontSize: AppSize.s14),
-                                ),
-                              ],
-                            ),
-                          ),
-                          DropdownSearch<CoverageArea>(
-
-                            popupProps: PopupProps.menu(
-                              showSearchBox: true,
-                              // disabledItemFn: (String s) => s.startsWith('I'),
-                              searchFieldProps: TextFieldProps(
-
-                                style: getBoldStyle(
-                                    color: Colormanager.black,
-                                    fontSize: FontSize.s15),
-
-                              ),
-                              itemBuilder: (context, item, isSelected) =>
-                              isSelected
-                                  ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  item.district!,
-                                  style: getBoldStyle(
-                                      color: Colormanager.primary),
-                                ),
-                              )
-                                  : Container(
-                                padding: const EdgeInsets.all(8.0),
-                                margin: const EdgeInsets.only(
-                                    bottom: 4),
-                                color: Colormanager.lightGrey
-                                    .withOpacity(0.2),
-                                child: Text(
-                                  item.district!,
-                                  style: getBoldStyle(
-                                      color: Colormanager.black,
-                                      fontSize: FontSize.s15),
-                                ),
-                              ),
-                            ),
-                            items: controller.coverageAreas,
-
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              baseStyle:
-                              getSemiBoldStyle(color: Colormanager.black),
-                              dropdownSearchDecoration: const InputDecoration(
-                                // labelText: "Menu mode",
-                                // hintText: "country in menu mode",
-
-                              ),
-                            ),
-                            onChanged: (value) {
-                              controller.selectedDistrict = value;
-                              controller.selectDistrict.value =
-                                  value!.district.toString();
-
-                              // Pass selected district as an integer
-                              // int parsedDistrictId = int.tryParse(value!.district.toString()) ?? 0;
-                              // controller.selectDistrictId.value = parsedDistrictId;
-
-
-                            },
-                            itemAsString: (item) => item.district.toString(),
-                            // districtId: int.tryParse(selectDistrict.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0,
-
-
-                            // selectedItem: controller.selectArea.value,
+                          Text(
+                            'District:',
+                            style: getSemiBoldStyle(
+                                color: Colormanager.lightGrey,
+                                fontSize: AppSize.s16),
                           ),
 
-                          // SearchField<District>(
-                          //   suggestions: controller.districts
-                          //       .map(
-                          //         (e) => SearchFieldListItem<District>(
-                          //           e.name.toString(),
-                          //           item: e,
-                          //           // Use child to show Custom Widgets in the suggestions
-                          //           // defaults to Text widget
-                          //           child: Padding(
-                          //             padding: const EdgeInsets.all(8.0),
-                          //             child: Row(
-                          //               children: [
-                          //                 const SizedBox(
-                          //                   width: 10,
-                          //                 ),
-                          //                 Text(e.name.toString()),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       )
-                          //       .toList(),
-                          //   suggestionState: Suggestion.expand,
-                          //   textInputAction: TextInputAction.next,
-                          //   hint: 'SearchField Example 2',
-                          //   hasOverlay: false,
-                          //   searchStyle: TextStyle(
-                          //     fontSize: 18,
-                          //     color: Colors.black.withOpacity(0.8),
-                          //   ),
-                          //   validator: (x) {
-                          //     if (x!.isEmpty) {
-                          //       return 'Please Enter a valid State';
-                          //     }
-                          //     return null;
-                          //   },
-                          //   searchInputDecoration: InputDecoration(
-                          //     focusedBorder: OutlineInputBorder(
-                          //       borderSide: BorderSide(
-                          //         color: Colors.black.withOpacity(0.8),
-                          //       ),
-                          //     ),
-                          //     border: const OutlineInputBorder(
-                          //       borderSide: BorderSide(color: Colors.red),
-                          //     ),
-                          //   ),
-                          //   maxSuggestionsInViewPort: 6,
-                          //   itemHeight: 50,
-                          //   onSuggestionTap: (newValue) {
-                          //     controller.selectedDistrict = newValue.item;
-                          //     controller.selectDistrict.value =
-                          //         newValue.item!.name.toString();
-                          //     controller.getCoverageAreas(newValue.item!.id!);
-                          //   },
-                          // ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: _selectedDistController,//_selectedAreaController,
+                              onTap: (){
+                                _showDistSelector(context);
 
-                          //Selecttor in Shop
-                          // Container(
-                          //   padding: const EdgeInsets.all(AppPadding.p4),
-                          //   decoration: BoxDecoration(
-                          //     shape: BoxShape.rectangle,
-                          //     border: Border.all(
-                          //         width: AppSize.s1_5,
-                          //         color: Colormanager.grey),
-                          //     borderRadius: const BorderRadius.all(
-                          //       Radius.circular(AppSize.s8),
-                          //     ),
-                          //   ),
-                          //   child: Obx(() => DropdownButton<District>(
-                          //         //isDense: true,
-                          //         hint: Text(
-                          //           controller.selectDistrict.value,
-                          //           style: getSemiBoldStyle(
-                          //             color: Colormanager.black,
-                          //           ),
-                          //         ),
-                          //         value: controller.selectedDistrict,
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Selected District',
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  onPressed: () {
+                                    _showDistSelector(context);
+                                  },
+                                ),
+                              ),
+                              readOnly: true,
+                            ),
 
-                          //         icon: Padding(
-                          //           padding:
-                          //               const EdgeInsets.only(left: 15.0),
-                          //           child: Icon(
-                          //             Icons.arrow_drop_down,
-                          //             color: Colors.grey[600],
-                          //           ),
-                          //         ),
-                          //         iconSize: 30,
-                          //         elevation: 16,
-                          //         isExpanded: true,
-                          //         style: const TextStyle(
-                          //           color: Colors.black,
-                          //         ),
-                          //         underline: Container(
-                          //           height: 0,
-                          //         ),
-                          //         onChanged: (District? newValue) {
-                          //           controller.selectedDistrict = newValue;
-                          //           controller.selectDistrict.value =
-                          //               newValue!.name.toString();
-                          //           controller.getCoverageAreas(newValue.id!);
-                          //         },
-                          //         items: controller.districts
-                          //             .map<DropdownMenuItem<District>>(
-                          //                 (District? value) {
-                          //           return DropdownMenuItem<District>(
-                          //             value: value,
-                          //             child: Text(
-                          //               '${value!.name}',
-                          //               style: getSemiBoldStyle(
-                          //                   color: Colormanager.black),
-                          //             ),
-                          //           );
-                          //         }).toList(),
-                          //       )),
-                          // ),
+
+                          ),
                         ],
                       ),
-
 
 
                       const SizedBox(

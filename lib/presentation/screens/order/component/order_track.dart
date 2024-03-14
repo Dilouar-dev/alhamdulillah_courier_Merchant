@@ -665,6 +665,7 @@ class OrderTrack extends StatefulWidget {
 
 class _OrderTrackState extends State<OrderTrack> {
   List<Map<String, dynamic>> orderHistory = [];
+  Map<String, dynamic>? orderData;
 
   @override
   void initState() {
@@ -697,6 +698,8 @@ class _OrderTrackState extends State<OrderTrack> {
         final List<dynamic> orderHistoryData = apiData["order_history"];
 
         setState(() {
+          orderData = Map<String, dynamic>.from(apiData['data']);
+
           orderHistory = List<Map<String, dynamic>>.from(orderHistoryData);
         });
       } else {
@@ -731,7 +734,7 @@ class _OrderTrackState extends State<OrderTrack> {
                           child: Center(
                             child: Text(
                               // 'Tracking ID: ${widget.order.trackingId}',
-                              'Tracking ID: ${widget.order.trackingId}',
+                              'Tracking ID: ${widget.trackingId}',
 
                               // 'Tracking ID: OE7702401145860',
                               style: TextStyle(
@@ -742,9 +745,13 @@ class _OrderTrackState extends State<OrderTrack> {
                             ),
                           ),
                         ),
-                        OrderDetailRow(label: 'Customer\'s Name', value: '${widget.order.customerName}'),
-                        OrderDetailRow(label: 'Customer\'s Contact', value: '${widget.order.customerPhone}'),
-                        OrderDetailRow(label: 'Customer\'s address', value: '${widget.order.customerAddress}'),
+                        if (orderData != null) // Check if order data is available
+                          OrderDetailRow(label: 'Customer\'s Name', value: '${orderData?['customer_name']}'),
+                        if (orderData != null)
+                          OrderDetailRow(label: 'Customer\'s Contact', value: '${orderData?['customer_phone']}'),
+                        if (orderData != null)
+
+                          OrderDetailRow(label: 'Customer\'s address', value: '${orderData?['customer_address']}'),
                       ],
                     ),
                   ),
