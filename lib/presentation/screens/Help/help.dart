@@ -55,7 +55,7 @@ class _HelpState extends State<Help> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        _launchDialPad('01885958754');
+                        _launchDialPad('+880 1824-678604');
                       },
                       child: Column(
                         children: [
@@ -63,7 +63,7 @@ class _HelpState extends State<Help> {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
-                              '01885958754',
+                              '+880 1824-678604',
                               style: TextStyle(
                                 color: Colors.black, // Make the number look like a link
                                 decoration: TextDecoration.underline,
@@ -76,7 +76,7 @@ class _HelpState extends State<Help> {
                     IconButton(
                       icon: Icon(Icons.copy),
                       onPressed: () {
-                        _copyToClipboard('01885958754');
+                        _copyToClipboard('+880 1824-678604');
                       },
                     ),
                   ],

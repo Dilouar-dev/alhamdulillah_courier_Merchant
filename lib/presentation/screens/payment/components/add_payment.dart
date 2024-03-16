@@ -686,31 +686,31 @@ class _PaymentInfoAddScreenState extends State<PaymentInfoAddScreen> {
                   child: Center(child: Text('Submit', style: TextStyle(fontSize: 25))),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top:70.0),
-               child: Column(
-                  children: [
-                    Text("For Payment related any quesries", style: TextStyle(color: Colormanager.darkPrimary, fontSize:20),),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("just contact on 01885958754", style: TextStyle(color: Colormanager.darkPrimary, fontSize:18),),
-                  ),
-                      IconButton(
-                        icon: Icon(Icons.copy),
-                        onPressed: () {
-                          _copyToClipboard('01885958754');
-                        },
-                      ),
-
-                ],
-              ),
-
-
-            ],
-                ),
-              ),
+            //   Padding(
+            //     padding: const EdgeInsets.only(top:70.0),
+            //    child: Column(
+            //       children: [
+            //         Text("For Payment related any quesries", style: TextStyle(color: Colormanager.darkPrimary, fontSize:20),),
+            //   Row(
+            //     children: [
+            //       Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Text("just contact on 01885958754", style: TextStyle(color: Colormanager.darkPrimary, fontSize:18),),
+            //       ),
+            //           IconButton(
+            //             icon: Icon(Icons.copy),
+            //             onPressed: () {
+            //               _copyToClipboard('01885958754');
+            //             },
+            //           ),
+            //
+            //     ],
+            //   ),
+            //
+            //
+            // ],
+            //     ),
+            //   ),
               // Row(
               //   children: [
               //     GestureDetector(
